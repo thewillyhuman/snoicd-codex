@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 public interface GetChildrenController {
 	
-	@RequestMapping(value = "/codex", method = RequestMethod.GET)
+	@RequestMapping(value = "/childs", method = RequestMethod.GET)
 	public ResponseEntity<String> getChildren(@RequestBody String term);
 
 }

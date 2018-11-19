@@ -27,6 +27,6 @@ public interface DecodeController {
 	 * 
 	 * @return the description of the code provided.
 	 */
-	@RequestMapping(value = "/codex", method = RequestMethod.GET)
+	@RequestMapping(value = "/decode", method = RequestMethod.GET)
 	public ResponseEntity<String> decodeCode(@RequestBody String term);
 }
