@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.weso.snoicd.knowledge.graph.TermNode;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,8 +48,7 @@ public class DecodeCodeControllerImpl implements DecodeController {
 			responseStatus = HttpStatus.BAD_REQUEST;
 			log.error( "Not possible to decode empty term" );
 		} else {
-			responseMap.put( "code", term );
-			responseMap.put( "description", "" /* service.decode(term) */ );
+			responseMap.put( "response", new TermNode().toString() /* service.decode(term) */ );
 			responseStatus = HttpStatus.OK;
 		}
 
