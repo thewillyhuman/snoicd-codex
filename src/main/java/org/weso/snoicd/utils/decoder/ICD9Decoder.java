@@ -7,18 +7,23 @@
  * See /LICENSE for license information.
  * 
  */
-package org.weso.snoicd.queries;
+package org.weso.snoicd.utils.decoder;
 
-import lombok.Data;
 
 /**
- * Instance of Query.java
+ * Instance of Decoder.java
  * 
  * @author 
  * @version 
  */
-@Data
-public class Query {
-	private String securityToken;
-	private String code;
+public class ICD9Decoder extends Decoder {
+	
+	public ICD9Decoder(String termToDecode) {
+		super(termToDecode);
+	}
+	
+	public String decode() {
+		// Call to the repository.
+		return super.termToDecode;
+	}
 }

@@ -15,18 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Instance of DecodeController.java
+ * Instance of GetChildrenController.java
  * 
  * @author 
  * @version 
  */
-public interface DecodeController {
+public interface GetChildrenController {
 	
-	/**
-	 * Decodes an ICD or SNOMED CT code and returns its description. 
-	 * 
-	 * @return the description of the code provided.
-	 */
 	@RequestMapping(value = "/codex", method = RequestMethod.GET)
-	public ResponseEntity<String> decodeCode(@RequestBody String term);
+	public ResponseEntity<String> getChildren(@RequestBody String term);
+
 }

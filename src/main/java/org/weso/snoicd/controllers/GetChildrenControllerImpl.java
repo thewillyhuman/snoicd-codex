@@ -19,39 +19,34 @@ import org.springframework.stereotype.Controller;
 
 import lombok.extern.slf4j.Slf4j;
 
-
 /**
- * Instance of DecodeCodeController.java
+ * Instance of GetChildrenControllerImpl.java
  * 
- * @author
- * @version
+ * @author 
+ * @version 
  */
 @Slf4j
 @Controller
-public class DecodeCodeControllerImpl implements DecodeController {
+public class GetChildrenControllerImpl implements GetChildrenController {
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.weso.snoicd.controllers.DecodeController#decodeCode(org.weso.snoicd.
-	 * Query)
+	/* (non-Javadoc)
+	 * @see org.weso.snoicd.controllers.GetChildrenController#getChildren(java.lang.String)
 	 */
 	@Override
-	public ResponseEntity<String> decodeCode( String term ) {
+	public ResponseEntity<String> getChildren( String term ) {
 		Map<String, String> responseMap = new HashMap<String, String>();
 		HttpStatus responseStatus = null;
-
-		// If there is no token then notify the user.
+		
 		if (term == null || term.equals( "" )) {
 			responseMap.put( "error", "no code detected" );
 			responseStatus = HttpStatus.BAD_REQUEST;
-			log.error( "Not possible to decode empty term" );
+			log.error( "Not possible to get the children of an empty term" );
 		} else {
 			responseMap.put( "code", term );
-			responseMap.put( "description", "" /* service.decode(term) */ );
+			responseMap.put( "children", "" /* service.getChildren(term) */ );
 			responseStatus = HttpStatus.OK;
 		}
-
+		
 		return new ResponseEntity<String>( new JSONObject( responseMap ).toString(),
 				responseStatus );
 	}
