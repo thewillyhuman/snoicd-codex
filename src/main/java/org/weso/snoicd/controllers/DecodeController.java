@@ -9,10 +9,9 @@
  */
 package org.weso.snoicd.controllers;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.Map;
+
+import org.weso.snoicd.knowledge.graph.TermNode;
 
 /**
  * Instance of DecodeController.java
@@ -27,6 +26,5 @@ public interface DecodeController {
 	 * 
 	 * @return the description of the code provided.
 	 */
-	@RequestMapping(value = "/decode", method = RequestMethod.GET)
-	public ResponseEntity<String> decodeCode(@RequestBody String term);
+	public TermNode decodeCode(Map<String, Object> payload);
 }

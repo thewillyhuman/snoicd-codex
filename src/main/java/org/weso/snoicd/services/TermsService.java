@@ -9,7 +9,7 @@
  */
 package org.weso.snoicd.services;
 
-import java.util.List;
+import org.weso.snoicd.knowledge.graph.TermNode;
 
 /**
  * Instance of TermsService.java
@@ -19,7 +19,5 @@ import java.util.List;
  */
 public interface TermsService {
 
-	public String decode(String term);
-	
-	public List<String> getChildren(String term);
+	public TermNode decode(String term);
 }

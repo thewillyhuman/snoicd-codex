@@ -9,14 +9,10 @@
  */
 package org.weso.snoicd.services;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Properties;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.weso.snoicd.utils.decoder.ICD10Decoder;
-import org.weso.snoicd.utils.decoder.ICD9Decoder;
+import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.repository.TermNodeRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,46 +25,31 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class TermsServiceImpl implements TermsService {
+	
+	String icd10 = "([A-TV-Z][0-9][A-Z0-9](\\.?[A-Z0-9]{0,4})?)";
+	String icd9 = "([V\\d]\\d{2}(\\.?\\d{0,2})?|E\\d{3}(\\.?\\d)?|\\d{2}(\\.?\\d{0,2})?)";
 
-	ClassLoader loader = Thread.currentThread().getContextClassLoader();
-	InputStream stream = loader.getResourceAsStream( "/expressions.properties" );
-	Properties regularExpressions = new Properties();
-
-	public TermsServiceImpl() {
-		try {
-			regularExpressions.load( stream );
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			log.error( e.getMessage() );
-		}
-	}
+	@Autowired
+	TermNodeRepository repository;
 
 	/*
 	 * (non-Javadoc)
 	 * @see org.weso.snoicd.services.TermsService#decode(java.lang.String)
 	 */
 	@Override
-	public String decode( String term ) {
+	public TermNode decode( String term ) {
 		
-		if (term.matches( regularExpressions.getProperty( "icd9" ) )) {
+		if (term.matches( icd9 )) {
 			log.info( "Decoding icd9 expression: " + term );
-			return new ICD9Decoder( term ).decode();
-		} else if (term.matches( regularExpressions.getProperty( "icd9" ) )) {
+			// Call to the service corresponding method.
+			return repository.findByIcd9Code( term );
+		} else if (term.matches( icd10 )) {
 			log.info( "Decoding icd10 expression: " + term );
-			return new ICD10Decoder(term).decode();
+			// Call to the service corresponding method.
+			return repository.findByIcd10Code( term );
+		} else {
+			// If we r here I interpret it is mongo.
+			return repository.findBySnomedCode( term );
 		}
-			
-		return "";
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.weso.snoicd.services.TermsService#getChildren(java.lang.String)
-	 */
-	@Override
-	public List<String> getChildren( String term ) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

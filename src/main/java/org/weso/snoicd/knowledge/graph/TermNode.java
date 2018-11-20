@@ -11,6 +11,13 @@ package org.weso.snoicd.knowledge.graph;
 
 import lombok.Data;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.bson.types.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Instance of TermNode.java
  * 
@@ -18,15 +25,23 @@ import lombok.Data;
  * @version 
  */
 @Data
+@Document(collection = "term_nodes")
 public class TermNode {
 	
+	@Id
+	@JsonIgnore
+	private ObjectId _id;
+	
 	// SNOMED CT Code.
+	@Indexed
 	private String snomedCode;
 	
 	// ICD 9 Code.
+	@Indexed
 	private String icd9Code;
 	
 	// ICD 10 Code.
+	@Indexed
 	private String icd10Code;
 	
 	// The description of the term

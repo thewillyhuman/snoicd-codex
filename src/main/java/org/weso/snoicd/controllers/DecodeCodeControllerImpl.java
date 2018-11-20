@@ -9,14 +9,15 @@
  */
 package org.weso.snoicd.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.services.TermsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +30,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-public class DecodeCodeControllerImpl implements DecodeController {
+public class DecodeCodeControllerImpl {
+	
+	@Autowired
+	TermsService service;
 
 	/*
 	 * (non-Javadoc)
@@ -37,23 +41,17 @@ public class DecodeCodeControllerImpl implements DecodeController {
 	 * org.weso.snoicd.controllers.DecodeController#decodeCode(org.weso.snoicd.
 	 * Query)
 	 */
-	@Override
-	public ResponseEntity<String> decodeCode( String term ) {
-		Map<String, String> responseMap = new HashMap<String, String>();
-		HttpStatus responseStatus = null;
-
+	@RequestMapping(value = "/decode", method = RequestMethod.POST)
+	public TermNode decodeCode(@RequestBody Map<String, Object> payload ) {
 		// If there is no token then notify the user.
-		if (term == null || term.equals( "" )) {
-			responseMap.put( "error", "no code detected" );
-			responseStatus = HttpStatus.BAD_REQUEST;
-			log.error( "Not possible to decode empty term" );
+		if (payload == null || !payload.containsKey( "term" )) {
+			log.error( "Not possible to decode empty term: " + payload );
+			return new TermNode();
 		} else {
-			responseMap.put( "response", new TermNode().toString() /* service.decode(term) */ );
-			responseStatus = HttpStatus.OK;
+			log.info( "Decoding term: " + payload.get( "term" ) );
+			return service.decode(payload.get( "term" ).toString());
 		}
-
-		return new ResponseEntity<String>( new JSONObject( responseMap ).toString(),
-				responseStatus );
+		
 	}
 
 }
