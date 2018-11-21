@@ -47,13 +47,28 @@ public class TermNodeTest {
 		child.setDescription( "Jaqueca" );
 		child.setIcd9Code( "002" );
 		child.setIcd10Code( "A002" );
-		node.setSnomedCode( "S001.A001.1" );
+		child.setSnomedCode( "S001.A001.1" );
+		
+		TermNode child2 = new TermNode();
+		child2.setDescription( "Cefalea" );
+		child2.setIcd9Code( "003" );
+		child2.setIcd10Code( "A003" );
+		child2.setSnomedCode( "S001.A001.2" );
+		
+		TermNode[] children2 = {child2};
+		child.setChildren( children2 );
 		
 		TermNode[] children = {child};
-		
 		node.setChildren( children );
 		
 		/*repo.save( node );
-		repo.save( child );*/
+		repo.save( child );
+		repo.save( child2 );*/
+	}
+	
+	@Test
+	public void findOne() {
+		TermNode node = repo.findByIcd9Code( "001" );
+		System.out.println( node );
 	}
 }
