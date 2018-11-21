@@ -2,7 +2,7 @@
 
 || **Architecture** | **Status** |
 |:------:|:-:|:----------:|
-|**Ubuntu Trusty 14.04**|x86_64|[![Build Status](https://travis-ci.org/thewilly/unknown.svg?branch=master)](https://travis-ci.org/thewilly/caffeine)|
+|**Ubuntu Trusty 14.04**|x86_64|[![Build Status](https://travis-ci.org/thewilly/snoicd-codex.svg?branch=master)](https://travis-ci.org/thewilly/snoicd-codex)|
 
 ### What's snoicd codex?
 Snoicd codex is a REST service build for resolving and mapping the codes between SNOMED CT and ICD terminologies. It helps developers to step over the gap that exists between those two terminologies.
