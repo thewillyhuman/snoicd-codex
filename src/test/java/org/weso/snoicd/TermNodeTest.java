@@ -61,9 +61,9 @@ public class TermNodeTest {
 		TermNode[] children = {child};
 		node.setChildren( children );
 		
-		/*repo.save( node );
+		repo.save( node );
 		repo.save( child );
-		repo.save( child2 );*/
+		repo.save( child2 );
 	}
 	
 	@Test

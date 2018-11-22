@@ -43,4 +43,11 @@ public interface TermNodeRepository extends MongoRepository<TermNode, ObjectId> 
 	 * @return
 	 */
 	TermNode findByIcd10Code(String icd10Code);
+	
+	/**
+	 * 
+	 * @param description
+	 * @return
+	 */
+	TermNode findByDescription(String description);
 }

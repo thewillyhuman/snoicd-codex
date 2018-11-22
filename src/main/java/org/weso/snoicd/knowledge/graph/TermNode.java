@@ -45,8 +45,10 @@ public class TermNode {
 	private String icd10Code;
 	
 	// The description of the term
+	@Indexed
 	private String description;
 	
 	// List of the children.
+	//@DBRef for keeping just the reference. But then we will have to resolve the terms.
 	private TermNode[] children;
 }

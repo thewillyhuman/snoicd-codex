@@ -19,5 +19,17 @@ import org.weso.snoicd.knowledge.graph.TermNode;
  */
 public interface TermsService {
 
+	/**
+	 * 
+	 * @param term
+	 * @return
+	 */
 	public TermNode decode(String term);
+	
+	/**
+	 * 
+	 * @param term
+	 * @return
+	 */
+	public TermNode getTermForDescription(String term);
 }

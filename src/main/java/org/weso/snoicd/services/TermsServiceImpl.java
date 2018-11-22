@@ -52,4 +52,9 @@ public class TermsServiceImpl implements TermsService {
 			return repository.findBySnomedCode( term );
 		}
 	}
+	
+	@Override
+	public TermNode getTermForDescription(String description) {
+		return repository.findByDescription( description );
+	}
 }

@@ -44,12 +44,17 @@ public class DecodeCodeControllerImpl {
 	@RequestMapping(value = "/decode", method = RequestMethod.POST)
 	public TermNode decodeCode(@RequestBody Map<String, Object> payload ) {
 		// If there is no token then notify the user.
-		if (payload == null || !payload.containsKey( "term" )) {
-			log.error( "Not possible to decode empty term: " + payload );
+		if (payload == null) {
+			log.error( "Payload not found" );
 			return new TermNode();
-		} else {
+		} else if (payload.containsKey( "termDescription" )) {
+			log.info( "Decoding description: " + payload.get( "termDescription" ) );
+			return service.getTermForDescription( payload.get( "termDescription" ).toString() );
+		} else if (payload.containsKey( "term" )){
 			log.info( "Decoding term: " + payload.get( "term" ) );
 			return service.decode(payload.get( "term" ).toString());
+		} else {
+			return null;
 		}
 		
 	}
