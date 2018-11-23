@@ -1,0 +1,59 @@
+@prefix :      <http://schema.org/> .
+
+:AcuteBenignHemorrhagicGlomerulonephriticSyndrome
+        a            :Bleeding ;
+        :definition  "Acute benign hemorrhagic glomerulonephritic syndrome" ;
+        :snomedCode  :57965003 .
+
+:242996005  :code  "242996005" .
+
+:AcquiredBodyStructure
+        a            :AnatomicalOrAquiredBodyStructure ;
+        :definition  "Acquired body structure" ;
+        :snomedCode  :280115004 .
+
+:A001   :code   "A001" .
+
+:Bleeding  a         :ClinicalFinding ;
+        :definition  "Bleding" ;
+        :snomedCode  :131148009 .
+
+:280115004  :code  "280115004" .
+
+:AnatomicalOrAquiredBodyStructure
+        a            :BodyStructure ;
+        :definition  "Anatomical or acquired body structure" ;
+        :snomedCode  :442083009 .
+
+:57965003  :code  "57965003" .
+
+:138875005  :code  "138875005" .
+
+:123037004  :code  "123037004" .
+
+:442083009  :code  "442083009" .
+
+:ClinicalFinding  a  :Concept ;
+        :definition  "Clinical Finding" ;
+        :snomedCode  :404684003 .
+
+:404684003  :code  "404684003" .
+
+:AccidentalHemorrhageDuringMedicalCare
+        a            :Bleeding ;
+        :definition  "Accidental hemorrhage during medical care" ;
+        :snomedCode  :242996005 .
+
+:BodyStructure  a    :Concept ;
+        :definition  "Body Structure" ;
+        :icd10Code   :A001 ;
+        :icd9Code    :001 ;
+        :snomedCode  :123037004 .
+
+:Concept  :definition  "Concept" ;
+        :snomedCode  :138875005 .
+
+:131148009  :code  "131148009" .
+
+:001    :code   "001" .
+
