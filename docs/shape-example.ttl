@@ -1,0 +1,13 @@
+PREFIX :       <http://example.org/>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+:Code IRI {
+ :code		xsd:string
+}
+
+:Concept IRI {
+ :definition   xsd:string ;
+ :icd10Code	    @:Code? ;
+ :icd9Code	    @:Code? ;
+ :snomedCode	    @:Code? ;               
+}
