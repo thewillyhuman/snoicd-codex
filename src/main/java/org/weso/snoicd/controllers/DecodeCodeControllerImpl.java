@@ -9,10 +9,10 @@
  */
 package org.weso.snoicd.controllers;
 
-import java.util.Map;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,22 +41,17 @@ public class DecodeCodeControllerImpl {
 	 * org.weso.snoicd.controllers.DecodeController#decodeCode(org.weso.snoicd.
 	 * Query)
 	 */
-	@RequestMapping(value = "/decode", method = RequestMethod.POST)
-	public TermNode decodeCode(@RequestBody Map<String, Object> payload ) {
-		// If there is no token then notify the user.
-		if (payload == null) {
+	@RequestMapping(value = "/codes/{codeId}", method = RequestMethod.GET)
+	public TermNode decodeCode( @PathVariable @NotNull String codeId ) {
+		
+		// If there is no term or the term is empty...
+		if (codeId == null || codeId.isEmpty()) {
 			log.error( "Payload not found" );
 			return new TermNode();
-		} else if (payload.containsKey( "termDescription" )) {
-			log.info( "Decoding description: " + payload.get( "termDescription" ) );
-			return service.getTermForDescription( payload.get( "termDescription" ).toString() );
-		} else if (payload.containsKey( "term" )){
-			log.info( "Decoding term: " + payload.get( "term" ) );
-			return service.decode(payload.get( "term" ).toString());
-		} else {
-			return null;
-		}
+		} 
 		
+		log.info( "Decoding term: " + codeId );
+		return service.decode(codeId);
 	}
 
 }

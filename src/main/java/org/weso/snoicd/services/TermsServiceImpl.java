@@ -48,7 +48,7 @@ public class TermsServiceImpl implements TermsService {
 			// Call to the service corresponding method.
 			return repository.findByIcd10Code( term );
 		} else {
-			// If we r here I interpret it is mongo.
+			// If we r here it must be an snomed code.
 			return repository.findBySnomedCode( term );
 		}
 	}
