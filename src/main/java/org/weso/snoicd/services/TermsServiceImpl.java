@@ -36,7 +36,7 @@ public class TermsServiceImpl implements TermsService {
 	 * (non-Javadoc)
 	 * @see org.weso.snoicd.services.TermsService#decode(java.lang.String)
 	 */
-	@Override
+	//@Override
 	public TermNode decode( String term ) {
 		
 		if (term.matches( icd9 )) {
@@ -53,7 +53,7 @@ public class TermsServiceImpl implements TermsService {
 		}
 	}
 	
-	@Override
+	//@Override
 	public TermNode getTermForDescription(String description) {
 		return repository.findByDescription( description );
 	}

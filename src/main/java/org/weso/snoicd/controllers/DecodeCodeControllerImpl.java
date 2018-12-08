@@ -35,23 +35,24 @@ public class DecodeCodeControllerImpl {
 	@Autowired
 	TermsService service;
 
+
 	/*
 	 * (non-Javadoc)
 	 * @see
 	 * org.weso.snoicd.controllers.DecodeController#decodeCode(org.weso.snoicd.
 	 * Query)
 	 */
-	@RequestMapping(value = "/codes/{codeId}", method = RequestMethod.GET)
-	public TermNode decodeCode( @PathVariable @NotNull String codeId ) {
+	@RequestMapping(value = "/api/codes/{codeId}", method = RequestMethod.GET)
+	public TermNode decodeCodeS( @PathVariable @NotNull String codeId ) {
 		
 		// If there is no term or the term is empty...
 		if (codeId == null || codeId.isEmpty()) {
 			log.error( "Payload not found" );
-			return new TermNode();
+			return null;
 		} 
 		
 		log.info( "Decoding term: " + codeId );
-		return service.decode(codeId);
+		return service.decode( codeId );
 	}
 
 }

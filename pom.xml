@@ -50,6 +50,11 @@
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
