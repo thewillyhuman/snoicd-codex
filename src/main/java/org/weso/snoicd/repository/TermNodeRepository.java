@@ -9,8 +9,11 @@
  */
 package org.weso.snoicd.repository;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.weso.snoicd.knowledge.graph.TermNode;
 
@@ -49,5 +52,7 @@ public interface TermNodeRepository extends MongoRepository<TermNode, ObjectId> 
 	 * @param description
 	 * @return
 	 */
-	TermNode findByDescription(String description);
+	@Query("{'descriptions.description': {$regex: ?0, $options: 'i' }})")
+	List<TermNode> findByDescription(String description);
+	
 }

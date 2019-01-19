@@ -9,6 +9,8 @@
  */
 package org.weso.snoicd.services;
 
+import java.util.List;
+
 import org.weso.snoicd.knowledge.graph.TermNode;
 
 /**
@@ -31,5 +33,5 @@ public interface TermsService {
 	 * @param term
 	 * @return
 	 */
-	public TermNode getTermForDescription(String term);
+	public List<TermNode> getTermForDescription(String term);
 }

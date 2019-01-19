@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChildNode {
+public class Description {
 	
-	private String snomedCode;
-	private String icd9Code;
-	private String icd10Code;
-	private Description[] descriptions;
+	private String language;
+	private String description;
+
 }

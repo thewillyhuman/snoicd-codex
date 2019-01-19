@@ -9,6 +9,8 @@
  */
 package org.weso.snoicd.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.weso.snoicd.knowledge.graph.TermNode;
@@ -54,7 +56,7 @@ public class TermsServiceImpl implements TermsService {
 	}
 	
 	//@Override
-	public TermNode getTermForDescription(String description) {
+	public List<TermNode> getTermForDescription(String description) {
 		return repository.findByDescription( description );
 	}
 }

@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @version 
  */
 @Data
-@Document(collection = "first-grammar")
+@Document(collection = "third-grammar")
 public class TermNode {
 	
 	@Id
@@ -45,9 +45,11 @@ public class TermNode {
 	private String icd10Code;
 	
 	// The description of the term
-	private String description;
+	private Description[] descriptions;
 	
 	// List of the children.
 	//@DBRef for keeping just the reference. But then we will have to resolve the terms.
 	private ChildNode[] children;
+	
+	private String[] parents;
 }

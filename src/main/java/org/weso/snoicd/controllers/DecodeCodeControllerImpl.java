@@ -9,6 +9,8 @@
  */
 package org.weso.snoicd.controllers;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,12 @@ public class DecodeCodeControllerImpl {
 		
 		log.info( "Decoding term: " + codeId );
 		return service.decode( codeId );
+	}
+	
+	@RequestMapping(value = "/api/description/{description}", method = RequestMethod.GET)
+	public List<TermNode> getForDescription( @PathVariable @NotNull String description ) {
+		
+		return service.getTermForDescription(description);
 	}
 
 }
