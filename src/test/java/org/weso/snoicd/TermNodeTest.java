@@ -149,7 +149,6 @@ public class TermNodeTest {
 	}
 
 	@Test
-	@Ignore
 	public void testAllTermsLoaded() {
 		List<TermNode> terms = repo.findAll();
 
@@ -199,5 +198,71 @@ public class TermNodeTest {
 			System.out.println("Status...  CURRENT: " + current + " TOTAL: " + total);
 			current++;
 		}
+	}
+	
+	@Test
+	public void addIcd10Mapping() {
+		MongoClient client = new MongoClient();
+		DB database = client.getDB("snoicd-codex");
+		DBCollection collection = database.getCollection("snomed-icd-map");
+		
+		List<TermNode> nodes = repo.findAll();
+		BasicDBObject query;
+		BasicDBObject ne;
+		
+		int total = nodes.size();
+		int current = 1;
+		
+		for(TermNode node : nodes) {
+			ne = new BasicDBObject("$ne","");
+
+			query =  new BasicDBObject();
+			
+			query.put("mapTarget", ne);
+			query.put("conceptId", node.getSnomedCode());
+			
+			DBCursor cursor = collection.find(query);
+			
+			if(cursor != null) {
+				DBObject result = cursor.one();
+				
+				if(result != null) {
+					String code = result.get("mapTarget").toString();
+					System.out.println(code);
+					node.setIcd10Code(code);
+					repo.save(node);
+				}
+			}
+			
+			System.out.println("Status...  CURRENT: " + current + " TOTAL: " + total);
+			current++;
+						
+		}
+		
+		
+	}
+	
+	@Test
+	public void addIcd9Mapping() {
+		MongoClient client = new MongoClient();
+		DB database = client.getDB("snoicd-codex");
+		DBCollection collection = database.getCollection("snomed-icd9-map");
+		
+		DBCursor cursor = collection.find();
+		
+		while(cursor.hasNext()) {
+			DBObject result = cursor.next();
+			System.out.println(result);
+			
+			if(result.get("SNOMED_CID")!= null) {
+				TermNode node = repo.findBySnomedCode(result.get("SNOMED_CID").toString());
+				
+				if(node != null) {
+					System.out.println(result.get("ICD_CODE").toString());
+					node.setIcd9Code(result.get("ICD_CODE").toString());
+					repo.save(node);
+				}
+			}			
+		}		
 	}
 }
