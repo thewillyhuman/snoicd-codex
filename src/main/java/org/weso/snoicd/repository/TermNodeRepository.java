@@ -45,7 +45,7 @@ public interface TermNodeRepository extends MongoRepository<TermNode, ObjectId> 
 	 * @param icd10Code
 	 * @return
 	 */
-	TermNode findByIcd10Code(String icd10Code);
+	List<TermNode> findByIcd10Code(String icd10Code);
 	
 	/**
 	 * 

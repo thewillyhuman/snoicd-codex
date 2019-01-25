@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.weso.snoicd.knowledge.graph.TermNode;
 import org.weso.snoicd.services.TermsService;
@@ -37,7 +38,6 @@ public class DecodeCodeControllerImpl {
 	@Autowired
 	TermsService service;
 
-
 	/*
 	 * (non-Javadoc)
 	 * @see
@@ -57,10 +57,10 @@ public class DecodeCodeControllerImpl {
 		return service.decode( codeId );
 	}
 	
-	@RequestMapping(value = "/api/description/{description}", method = RequestMethod.GET)
-	public List<TermNode> getForDescription( @PathVariable @NotNull String description ) {
-		
-		return service.getTermForDescription(description);
+	@RequestMapping(value = "/api/search", method = RequestMethod.GET)
+	public List<TermNode> getForDescription( @RequestParam @NotNull String q ) {
+		q = q.replace('+', ' ');
+		return service.getTermForDescription(q);
 	}
 
 }

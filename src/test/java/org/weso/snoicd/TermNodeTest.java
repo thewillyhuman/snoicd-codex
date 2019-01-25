@@ -66,13 +66,6 @@ public class TermNodeTest {
 	 * repo.save( node ); //repo.save( child ); //repo.save( child2 ); }
 	 */
 
-	@Test
-	@Ignore
-	public void findOne() {
-		TermNode node = repo.findByIcd9Code("001");
-		System.out.println(node);
-	}
-
 	@Test @Ignore
 	public void populateTable() {
 		MongoClient client = new MongoClient();

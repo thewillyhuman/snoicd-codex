@@ -48,7 +48,7 @@ public class TermsServiceImpl implements TermsService {
 		} else if (term.matches( icd10 )) {
 			log.info( "Decoding icd10 expression: " + term );
 			// Call to the service corresponding method.
-			return repository.findByIcd10Code( term );
+			return repository.findByIcd10Code( term ).get(0);
 		} else {
 			// If we r here it must be an snomed code.
 			return repository.findBySnomedCode( term );
