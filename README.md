@@ -1,3 +1,5 @@
+<img src="https://github.com/thewilly/snoicd-codex/blob/master/docs/snoicd-codex-logo.png" alt="Swift logo" height="50" >
+
 # SNOMED-CT & ICD Codex
 
 || **Architecture** | **Status** |
