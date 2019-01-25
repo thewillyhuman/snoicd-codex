@@ -1,0 +1,17 @@
+mongodb:
+  image: mongo
+  ports:
+    - "27017:27017"
+
+mongo-seed:
+  build: ./mongo-seed
+  links:
+    - mongodb
+
+# API Layer
+api:
+  build: ./api
+  ports:
+    - "8082:8082"
+  links:
+    - mongodb
