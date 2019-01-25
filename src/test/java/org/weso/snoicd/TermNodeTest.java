@@ -32,11 +32,11 @@ import pl.pojo.tester.api.assertion.Method;
 /**
  * Unit test for simple App.
  */
-@SpringBootTest(classes = { StartUp.class })
-@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringBootTest(classes = { StartUp.class })
+//@RunWith(SpringJUnit4ClassRunner.class)
 public class TermNodeTest {
 
-	@Autowired
+	//@Autowired
 	TermNodeRepository repo;
 
 	@Test
@@ -148,7 +148,7 @@ public class TermNodeTest {
 		System.out.println("Connection closed ...");
 	}
 
-	@Test
+	@Test @Ignore
 	public void testAllTermsLoaded() {
 		List<TermNode> terms = repo.findAll();
 
@@ -156,7 +156,7 @@ public class TermNodeTest {
 		assertEquals(432471, terms.size());
 	}
 
-	@Test
+	@Test @Ignore
 	public void invertModel() {
 		List<TermNode> nodes = repo.findAll();
 
@@ -200,7 +200,7 @@ public class TermNodeTest {
 		}
 	}
 	
-	@Test
+	@Test @Ignore
 	public void addIcd10Mapping() {
 		MongoClient client = new MongoClient();
 		DB database = client.getDB("snoicd-codex");
@@ -242,7 +242,7 @@ public class TermNodeTest {
 		
 	}
 	
-	@Test
+	@Test @Ignore
 	public void addIcd9Mapping() {
 		MongoClient client = new MongoClient();
 		DB database = client.getDB("snoicd-codex");
