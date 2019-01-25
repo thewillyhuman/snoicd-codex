@@ -1,6 +1,6 @@
-<p align="center"><img src="https://github.com/thewilly/snoicd-codex/blob/master/docs/snoicd-codex-logo.png" alt="Snomed logo" height="50"></p>
+<img src="https://github.com/thewilly/snoicd-codex/blob/master/docs/snoicd-codex-logo.png" alt="Snomed logo" height="50">
 
-<!-- # SNOMED-CT & ICD Codex -->
+# SNOMED-CT & ICD Codex 
 
 || **Architecture** | **Status** |
 |:------:|:-:|:----------:|
