@@ -22,6 +22,12 @@
 	</parent>
 
 	<dependencies>
+	
+		<dependency>
+			<groupId>com.github.computer-engineering-uniovi</groupId>
+			<artifactId>swift</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,6 +102,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.7.201606060606</version>
+				<configuration>
+					<excludes>
+						<exclude>src/main/scripts/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
