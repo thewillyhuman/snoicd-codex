@@ -1,17 +1,21 @@
-mongodb:
-  image: mongo
-  ports:
-    - "27017:27017"
+version: '3'
 
-mongo-seed:
-  build: ./data/mongo-seed
-  links:
-    - mongodb
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
 
-# API Layer
-api:
-  build: ./api
-  ports:
-    - "8082:8082"
-  links:
-    - mongodb
+  mongo-seed:
+    image: mongo
+    links:
+      - mongodb
+
+    volumes:
+      - ./data:/initial-data
+
+    command:
+      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection internal-knowledge-base --file /initial-data/internal-knoledge-base-en.json --jsonArray"
+
+    links:
+      - mongo

@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @version 20190125
  */
 @Data
-@Document(collection = "third-grammar-icd9-icd10")
+@Document(collection = "internal-knowledge-base")
 public class TermNode {
 
 	@Id
