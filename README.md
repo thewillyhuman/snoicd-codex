@@ -2,9 +2,9 @@
 
 # SNOMED-CT & ICD Codex 
 
-|| **Architecture** | **Status** |
-|:------:|:-:|:----------:|
-|**Ubuntu Trusty 14.04**|x86_64|[![Build Status](https://travis-ci.org/thewilly/snoicd-codex.svg?branch=master)](https://travis-ci.org/thewilly/snoicd-codex)|
+|| **Architecture** | **Status** | **Tests Coverage**
+|:------:|:-:|:----------:|:---:|
+|**Ubuntu Trusty 14.04**|x86_64|[![Build Status](https://travis-ci.org/thewilly/snoicd-codex.svg?branch=master)](https://travis-ci.org/thewilly/snoicd-codex)|[![codecov](https://codecov.io/gh/thewilly/snoicd-codex/branch/master/graph/badge.svg)](https://codecov.io/gh/thewilly/snoicd-codex)|
 
 ## Welcome to snoicd-codex
 Snoicd codex is a REST service build for resolving and mapping the codes in SNOMED CT and ICD terminologies. It helps developers to step over the gap that exists between those two terminologies.
