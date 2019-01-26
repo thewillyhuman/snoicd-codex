@@ -5,7 +5,7 @@
  * Licensed under GNU General Public License v3.0.
  *
  * See /LICENSE for license information.
- * 
+ *
  */
 package org.weso.snoicd.knowledge.graph;
 
@@ -22,12 +22,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * A term node is an object that joins the snomed code, icd9 code and the icd10
  * code. It stores also the different descriptions for a given code and the
  * ChildNodes for the term.
- * 
+ *
  * @author Guillermo Facundo Colunga
  * @version 20190125
  */
 @Data
-@Document(collection = "internal-knowledge-base")
+@Document(collection = "internalKB")
 public class TermNode {
 
 	@Id

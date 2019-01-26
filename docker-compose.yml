@@ -3,6 +3,11 @@ version: '3'
 services:
   mongo:
     image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: snoicd-codex
+    volumes:
+      - ./data/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     ports:
       - "27017:27017"
 
@@ -10,12 +15,9 @@ services:
     image: mongo
     links:
       - mongodb
-
     volumes:
       - ./data:/initial-data
-
     command:
-      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection internal-knowledge-base --file /initial-data/internal-knoledge-base-en.json --jsonArray"
-
+      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection internalKB --file /initial-data/internal-knoledge-base-en.json --jsonArray"
     links:
       - mongo
