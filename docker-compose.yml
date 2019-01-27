@@ -13,11 +13,19 @@ services:
 
   mongo-seed:
     image: mongo
-    links:
-      - mongodb
     volumes:
       - ./data:/initial-data
     command:
       "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection internalKB --file /initial-data/internal-knoledge-base-en.json --jsonArray"
     links:
       - mongo
+  
+  api:
+    build: ./api
+    ports:
+      - "8082:8082"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+      - mongo-seed
