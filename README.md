@@ -11,6 +11,23 @@ Snoicd codex is a REST service build for resolving and mapping the codes in SNOM
 
 It is build on top of a reduced version of the SNOMED CT database and [UMLS](https://www.nlm.nih.gov/research/umls/) map files for ICD-9 and ICD-10.
 
+## Getting started
+These instructions give the most direct path to a working snoice-codex. First thing to do is to clone the repository on to your local computer, for that:
+  
+``` shell
+git clone https://github.com/thewilly/snoicd-codex
+```
+  
+Then you will need to change your working directory to the snoicd-codex, build the api sources and finally deploy the docker container, to do so:
+  
+```
+cd snoicd-codex;
+cd api;
+mvn package -DskipTests;
+cd ..;
+docker-compose up;
+```
+
 ## Versions included
 
 | **Terminology Version** | **Internal code** |
