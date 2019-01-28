@@ -3,7 +3,7 @@
 The snoicd-codex API provide two endpoints for REST requests.
 
 ## `/api/codes/{codeId}`
-**Definition:** This endpoint returns the term that matches the codeId.  
+**Definition:** This endpoint returns the term that matches the codeId. At the time it is only safe to use the snomedCode.  
 **Return object:**
 ```
 {
