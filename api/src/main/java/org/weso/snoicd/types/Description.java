@@ -1,4 +1,4 @@
-package org.weso.snoicd.knowledge.graph;
+package org.weso.snoicd.types;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

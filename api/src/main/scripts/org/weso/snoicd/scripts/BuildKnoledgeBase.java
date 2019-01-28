@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.bson.BSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.weso.snoicd.knowledge.graph.ChildNode;
-import org.weso.snoicd.knowledge.graph.Description;
-import org.weso.snoicd.knowledge.graph.TermNode;
 import org.weso.snoicd.repository.TermNodeRepository;
+import org.weso.snoicd.types.ChildNode;
+import org.weso.snoicd.types.Description;
+import org.weso.snoicd.types.TermNode;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -38,8 +38,9 @@ public class BuildKnoledgeBase {
 
 		System.out.println("Populating table ...");
 
+		int j = 0;
+		int t = cursor.size();
 		while (cursor.hasNext()) {
-			System.out.println("New result ...");
 			DBObject result = cursor.next();
 			TermNode node = new TermNode();
 			node.setSnomedCode(result.get("conceptId").toString());
@@ -56,9 +57,7 @@ public class BuildKnoledgeBase {
 				List<String> parents = new ArrayList<String>();
 
 				for (int i = 0; i < parentsList.size(); i++) {
-					System.out.println(parentsList.get(i).getClass());
 					BSONObject json = (BSONObject) parentsList.get(i);
-					System.out.println(((BSONObject) json.get("target")).get("conceptId"));
 
 					parents.add(((BSONObject) json.get("target")).get("conceptId").toString());
 				}
@@ -69,7 +68,7 @@ public class BuildKnoledgeBase {
 			}
 
 			repo.save(node);
-			System.out.println("New result added ...");
+			System.out.println(j++  + "/" + t);
 		}
 
 		client.close();

@@ -4,6 +4,7 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.weso.snoicd.types.ChildNode;
 
 import TestKit.UnitTest;
 import pl.pojo.tester.api.assertion.Method;

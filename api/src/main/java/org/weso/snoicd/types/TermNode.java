@@ -7,7 +7,7 @@
  * See /LICENSE for license information.
  *
  */
-package org.weso.snoicd.knowledge.graph;
+package org.weso.snoicd.types;
 
 import lombok.Data;
 

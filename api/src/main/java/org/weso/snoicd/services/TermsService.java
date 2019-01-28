@@ -11,7 +11,7 @@ package org.weso.snoicd.services;
 
 import java.util.List;
 
-import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.types.TermNode;
 
 /**
  * Instance of TermsService.java

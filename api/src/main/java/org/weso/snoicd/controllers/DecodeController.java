@@ -11,7 +11,7 @@ package org.weso.snoicd.controllers;
 
 import java.util.Map;
 
-import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.types.TermNode;
 
 /**
  * Instance of DecodeController.java

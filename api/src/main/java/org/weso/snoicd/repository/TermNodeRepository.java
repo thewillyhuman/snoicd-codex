@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.types.TermNode;
 
 /**
  * Instance of TermNodeRepository.java

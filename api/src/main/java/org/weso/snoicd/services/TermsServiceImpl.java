@@ -13,8 +13,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.weso.snoicd.knowledge.graph.TermNode;
 import org.weso.snoicd.repository.TermNodeRepository;
+import org.weso.snoicd.types.TermNode;
 
 import lombok.extern.slf4j.Slf4j;
 

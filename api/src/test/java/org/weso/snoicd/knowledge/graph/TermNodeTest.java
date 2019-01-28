@@ -2,7 +2,8 @@ package org.weso.snoicd.knowledge.graph;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.weso.snoicd.knowledge.graph.TermNode;
+import org.weso.snoicd.types.TermNode;
+
 import TestKit.UnitTest;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import pl.pojo.tester.api.assertion.Method;
