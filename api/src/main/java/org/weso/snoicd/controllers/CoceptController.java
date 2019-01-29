@@ -36,6 +36,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.ResponseToQuery;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class CoceptController {
 
@@ -61,36 +64,49 @@ public class CoceptController {
 	public ResponseEntity<ResponseToQuery> searchEntryPoint(@RequestParam @NotNull String q,
 			@RequestParam @Nullable String filter) {
 
-		// Initiating the JSON response object to que query.
+		log.info("SEARCH request received.");
+		
+		// Initiating the JSON response object to the query.
 		rtq = new ResponseToQuery();
 
 		// Storing the query performed.
 		rtq.setQuery(q + "&" + filter);
+		
+		log.info("Searching for: " + rtq.getQuery());
 
 		// If the filter is present in the query...
 		if (filter != null && filter != "" && filter != " ") {
+			log.info("Filter found.");
 
 			// If we filter by code.
 			if (filter.equals("code")) {
+				log.info("Filter was: code.");
+				
 				rtq.setResult(this.service.getConceptByCode(q));
 				rtq.setStatus("OK");
 				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
 
 				// If we filter only by description.
 			} else if (filter.equals("description")) {
+				log.info("Filter was: description.");
+				
 				rtq.setResult(this.service.getConceptsByDescription(q));
 				rtq.setStatus("OK");
 				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
 
 				// In any other case the query is not accepted.
 			} else {
+				log.info("Filter was: invalid.");
+				log.info("SEARCH invalidated.");
+				
 				rtq.setStatus("Invalid query");
 				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.BAD_REQUEST);
 			}
 
 			// If there is no filter present, then...
 		} else {
-
+			log.info("No filter found.");
+			
 			// Get results for code.
 			rtq.setResult(this.service.getConceptByCode(q));
 
@@ -103,6 +119,7 @@ public class CoceptController {
 			response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
 		}
 
+		log.info("SEARCH dispached.");
 		// Finally return the response.
 		return response;
 	}

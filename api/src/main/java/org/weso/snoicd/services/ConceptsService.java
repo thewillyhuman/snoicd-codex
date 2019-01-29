@@ -35,7 +35,6 @@ import org.weso.snoicd.types.Concept;
 @Service
 public class ConceptsService {
 	
-	
 	@Autowired
 	ConceptsRepository repository;
 
@@ -43,8 +42,8 @@ public class ConceptsService {
 		return this.repository.findByCode(code);
 	}
 
-	public List<Concept> getConceptsByDescription(@NotNull String q) {
-		return this.repository.findByDescription(q);
+	public List<Concept> getConceptsByDescription(@NotNull String query) {
+		return this.repository.findByDescription(query);
 	}
 	
 }
