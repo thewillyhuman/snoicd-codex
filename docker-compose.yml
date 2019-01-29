@@ -16,7 +16,7 @@ services:
     volumes:
       - ./data:/initial-data
     command:
-      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection internalKB --file /initial-data/internal-knoledge-base-en.json --jsonArray"
+      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection concepts --file /initial-data/concepts.json --jsonArray"
     links:
       - mongo
 
