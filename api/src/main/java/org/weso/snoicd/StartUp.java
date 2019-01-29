@@ -31,7 +31,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * start the API on with the parameters given at applications.propperties file.
  * 
  * @author Guillermo Facundo Colunga.
- *
+ * @version since 1.0
  */
 @SpringBootApplication
 public class StartUp {

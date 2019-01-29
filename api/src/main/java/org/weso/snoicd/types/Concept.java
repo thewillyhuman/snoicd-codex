@@ -38,37 +38,64 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
+/**
+ * POJO object to represent a concept in the context of the system. It is
+ * composed by an id, its code, terminology name, its descriptions, and related
+ * codes.
+ * 
+ * <p>
+ * Will be printed as { code, terminologyName, description and relatedCodes } in
+ * JSON.
+ * </p>
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version since 1.0
+ */
 @Data
 @JsonPropertyOrder({ "code", "terminologyName", "descriptions", "relatedCodes" })
-@Document( collection = "concepts" )
+@Document(collection = "concepts")
 public class Concept {
 
 	@Id
 	@JsonIgnore
 	private ObjectId _id;
-	
+
 	@Indexed
 	private String code;
-	
+
 	@JsonProperty("terminology_name")
 	private String terminologyName;
-	
+
 	@TextIndexed
 	private List<String> descriptions;
-	
+
 	@JsonProperty("related_codes")
 	private List<SimpleConcept> relatedCodes;
-	
+
+	/**
+	 * Getter for the descriptions list of a concept. If there is no list will
+	 * create, associate and return an empty one.
+	 * 
+	 * @return The lists of descriptions if exists or an empty one if it does
+	 *         not exists one.
+	 */
 	public List<String> getDescriptions() {
-		if(this.descriptions == null) {
+		if (this.descriptions == null) {
 			return this.descriptions = new ArrayList<String>();
 		} else {
 			return this.descriptions;
 		}
 	}
-	
+
+	/**
+	 * Getter for the descriptions list of related codes. If there is no list will
+	 * create, associate and return an empty one.
+	 * 
+	 * @return The lists of related codes if exists or an empty one if it does
+	 *         not exists one.
+	 */
 	public List<SimpleConcept> getRelatedCodes() {
-		if(this.relatedCodes == null) {
+		if (this.relatedCodes == null) {
 			return this.relatedCodes = new ArrayList<SimpleConcept>();
 		} else {
 			return this.relatedCodes;

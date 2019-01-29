@@ -27,15 +27,24 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * Represents a response to a given query in the context of the system. A query
+ * consists on a String that represents the text to search, the response status
+ * and the list containing all the results after the query execution.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version since 1.0
+ */
 @Data
 public class ResponseToQuery {
-	
+
 	// The status received after executing the query.
 	private String status;
-	
+
 	// The original query.
 	private String query;
-	
+
+	// The lists of results.
 	private List<Concept> result;
 
 }
