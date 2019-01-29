@@ -10,4 +10,4 @@ GitHub account (G), description (D).
 N: Guillermo Facundo Colunga
 E: colunga91@gmail.com
 G: thewilly
-D: services & architechture
+D: founder
