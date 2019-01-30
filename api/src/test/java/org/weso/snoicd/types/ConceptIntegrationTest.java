@@ -34,7 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repository.ConceptsRepository;
+import org.weso.snoicd.repositories.ConceptsRepository;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;

@@ -19,7 +19,7 @@ public class SimpleConceptConceptSmokeTest {
 				Method.EQUALS,
 				Method.HASH_CODE,
 				Method.TO_STRING,
-				Method.CONSTRUCTOR);
+				Method.CONSTRUCTOR).areWellImplemented();
 		
 	}
 }

@@ -138,7 +138,9 @@
 				<version>0.7.7.201606060606</version>
 				<configuration>
 					<excludes>
-						<exclude>src/main/scripts/**</exclude>
+						<exclude>**/repositories/**</exclude>
+						<exclude>**/tests/**</exclude>
+						<exclude>**/StartUp.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
