@@ -46,7 +46,7 @@ import com.mongodb.MongoClient;
 
 @SpringBootTest(classes = { StartUp.class })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ConceptTest {
+public class ConceptIntegrationTest {
 
 	@Autowired
 	ConceptsRepository repo;
