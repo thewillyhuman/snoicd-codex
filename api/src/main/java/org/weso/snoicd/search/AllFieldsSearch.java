@@ -32,6 +32,7 @@ public class AllFieldsSearch implements Search {
 		// And finally set the status to OK.
 		rtq.setStatus(HttpStatus.OK);
 
+		log.info("Dispaching search by all fields.");
 		// TODO Auto-generated method stub
 		return null;
 	}
