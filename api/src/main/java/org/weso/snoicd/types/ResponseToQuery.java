@@ -25,6 +25,8 @@ package org.weso.snoicd.types;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+
 import lombok.Data;
 
 /**
@@ -39,7 +41,7 @@ import lombok.Data;
 public class ResponseToQuery {
 
 	// The status received after executing the query.
-	private String status;
+	private HttpStatus status;
 
 	// The original query.
 	private String query;

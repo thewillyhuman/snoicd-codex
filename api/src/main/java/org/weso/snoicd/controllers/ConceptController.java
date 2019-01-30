@@ -26,13 +26,16 @@ package org.weso.snoicd.controllers;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.weso.snoicd.search.AllFieldsSearch;
+import org.weso.snoicd.search.CodeSearch;
+import org.weso.snoicd.search.DescriptionSearch;
+import org.weso.snoicd.search.InvalidSearch;
 import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.ResponseToQuery;
 
@@ -40,17 +43,11 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class CoceptController {
+public class ConceptController {
 
 	// The service that will communicate with the repository.
 	@Autowired
 	ConceptsService service;
-
-	// The response object.
-	private ResponseEntity<ResponseToQuery> response;
-
-	// The response JSON to the query submitted.
-	private ResponseToQuery rtq;
 
 	/**
 	 * Defines an entry point for the search of concepts in the system.
@@ -60,20 +57,15 @@ public class CoceptController {
 	 * @return a ResponseEntity object with a ResponseToQuery object in the body
 	 *         containing the result of executing the given query.
 	 */
-	@RequestMapping(value = "/api/v2/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/search", method = RequestMethod.GET)
 	public ResponseEntity<ResponseToQuery> searchEntryPoint(@RequestParam @NotNull String q,
 			@RequestParam @Nullable String filter) {
 
 		log.info("SEARCH request received.");
 		
-		// Initiating the JSON response object to the query.
-		rtq = new ResponseToQuery();
-
-		// Storing the query performed.
-		rtq.setQuery(q + "&" + filter);
-		
-		log.info("Searching for: " + rtq.getQuery());
-
+		// The response JSON to the query submitted.
+		ResponseToQuery rtq;
+	
 		// If the filter is present in the query...
 		if (filter != null && filter != "" && filter != " ") {
 			log.info("Filter found.");
@@ -81,46 +73,26 @@ public class CoceptController {
 			// If we filter by code.
 			if (filter.equals("code")) {
 				log.info("Filter was: code.");
-				
-				rtq.setResult(this.service.getConceptByCode(q));
-				rtq.setStatus("OK");
-				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
+				rtq = new CodeSearch(this.service, q).execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 
 				// If we filter only by description.
 			} else if (filter.equals("description")) {
 				log.info("Filter was: description.");
-				
-				rtq.setResult(this.service.getConceptsByDescription(q));
-				rtq.setStatus("OK");
-				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
+				rtq = new DescriptionSearch(this.service, q).execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 
 				// In any other case the query is not accepted.
 			} else {
-				log.info("Filter was: invalid.");
-				log.info("SEARCH invalidated.");
-				
-				rtq.setStatus("Invalid query");
-				response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.BAD_REQUEST);
+				rtq = new InvalidSearch().execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 			}
 
 			// If there is no filter present, then...
 		} else {
 			log.info("No filter found.");
-			
-			// Get results for code.
-			rtq.setResult(this.service.getConceptByCode(q));
-
-			// Add with the results for description.
-			rtq.getResult().addAll(this.service.getConceptsByDescription(q));
-
-			// And finally set the status to OK.
-			rtq.setStatus("OK");
-
-			response = new ResponseEntity<ResponseToQuery>(rtq, HttpStatus.OK);
+			rtq = new AllFieldsSearch(this.service, q).execute();
+			return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 		}
-
-		log.info("SEARCH dispached.");
-		// Finally return the response.
-		return response;
 	}
 }

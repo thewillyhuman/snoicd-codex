@@ -76,6 +76,12 @@
 			<version>0.7.6</version>
 		</dependency>
 
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -138,7 +144,6 @@
 				<version>0.7.7.201606060606</version>
 				<configuration>
 					<excludes>
-						<exclude>**/repositories/**</exclude>
 						<exclude>**/tests/**</exclude>
 						<exclude>**/StartUp.*</exclude>
 					</excludes>
