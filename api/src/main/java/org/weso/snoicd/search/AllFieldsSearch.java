@@ -34,7 +34,7 @@ public class AllFieldsSearch implements Search {
 
 		log.info("Dispaching search by all fields.");
 		// TODO Auto-generated method stub
-		return null;
+		return rtq;
 	}
 
 }

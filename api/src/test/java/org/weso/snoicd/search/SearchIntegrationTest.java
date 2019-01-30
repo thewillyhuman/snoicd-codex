@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
 import org.weso.snoicd.repositories.ConceptsRepository;
@@ -44,7 +43,7 @@ public class SearchIntegrationTest {
 	private ConceptsService service;
 	
 	@Before
-	public void setUp() throws InterruptedException {
+	public void setUp() {
 
 		SimpleConcept sc = new SimpleConcept();
 		sc.setCode("SC-1");
@@ -59,13 +58,11 @@ public class SearchIntegrationTest {
 		repo.save(c);
 
 		assertEquals(c, repo.findByCode("C-1").get(0));
-		Thread.sleep(2000);
 	}
 
 	@After
-	public void tearDown() throws InterruptedException {
+	public void tearDown() {
 		repo.deleteAll();
-		Thread.sleep(2000);
 	}
 
 	@Test

@@ -79,8 +79,15 @@ public class ConceptControllerIntegrationTest {
 	}
 
 	@Test
-	public void statusTest() throws Exception {
+	public void findConceptsByCodeTest() throws Exception {
 		MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=code").session(session)
+				.contentType(MediaType.APPLICATION_JSON);
+		mockMvc.perform(request).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void findConceptsByCodeWithNullFilterTest() throws Exception {
+		MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=").session(session)
 				.contentType(MediaType.APPLICATION_JSON);
 		mockMvc.perform(request).andExpect(status().isOk());
 	}
@@ -96,7 +103,14 @@ public class ConceptControllerIntegrationTest {
 	public void findConceptsByAllFieldsTest() throws Exception {
 		MockHttpServletRequestBuilder request = get("/api/search?q=C-1").session(session)
 				.contentType(MediaType.APPLICATION_JSON);
-		// mockMvc.perform(request).andExpect(status().isOk());
+		mockMvc.perform(request).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void nullQueryTest() throws Exception {
+		MockHttpServletRequestBuilder request = get("/api/search?q=aaa&filter=lala").session(session)
+				.contentType(MediaType.APPLICATION_JSON);
+		 mockMvc.perform(request).andExpect(status().isBadRequest());
 	}
 
 }
