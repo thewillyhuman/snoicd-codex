@@ -18,7 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -36,6 +38,7 @@ import TestKit.IntegrationTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @Category(IntegrationTest.class)
+@DirtiesContext
 public class ConceptControllerIntegrationTest {
 
 	@Autowired
@@ -75,25 +78,25 @@ public class ConceptControllerIntegrationTest {
 		repo.deleteAll();
 	}
 
-	@Test @Ignore
+	@Test
 	public void statusTest() throws Exception {
 		MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=code").session(session)
 				.contentType(MediaType.APPLICATION_JSON);
-		//mockMvc.perform(request).andExpect(status().isOk());
+		mockMvc.perform(request).andExpect(status().isOk());
 	}
 
-	@Test @Ignore
+	@Test
 	public void findConceptsByDescriptionTest() throws Exception {
 		MockHttpServletRequestBuilder request = get("/api/search?q=des&filter=description").session(session)
 				.contentType(MediaType.APPLICATION_JSON);
-		//mockMvc.perform(request).andExpect(status().isOk());
+		mockMvc.perform(request).andExpect(status().isOk());
 	}
 	
-	@Test @Ignore
+	@Test
 	public void findConceptsByAllFieldsTest() throws Exception {
 		MockHttpServletRequestBuilder request = get("/api/search?q=C-1").session(session)
 				.contentType(MediaType.APPLICATION_JSON);
-		//mockMvc.perform(request).andExpect(status().isOk());
+		// mockMvc.perform(request).andExpect(status().isOk());
 	}
 
 }
