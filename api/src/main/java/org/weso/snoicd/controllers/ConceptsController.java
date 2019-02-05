@@ -59,7 +59,7 @@ public class ConceptsController {
 	 */
 	@RequestMapping(value = "/api/search", method = RequestMethod.GET)
 	public ResponseEntity<ResponseToQuery> searchEntryPoint(@RequestParam @NotNull String q,
-			@RequestParam @Nullable String filter) {
+			@RequestParam(required = false) @Nullable String filter) {
 
 		log.info("SEARCH request received.");
 		
