@@ -34,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
 import org.weso.snoicd.repositories.ConceptsRepository;
@@ -269,6 +268,7 @@ public class ConceptScripts {
 			}
 			
 		}
+		client.close();
 	}
 	
 	@Test @Ignore
@@ -323,6 +323,7 @@ public class ConceptScripts {
 			}
 			
 		}
+		client.close();
 	}
 
 }
