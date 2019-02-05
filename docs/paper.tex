@@ -1,0 +1,168 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out
+                                                          % if you need a4paper
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4
+                                                          % paper
+
+\IEEEoverridecommandlockouts                              % This command is only
+                                                          % needed if you want to
+                                                          % use the \thanks command
+\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{listings}
+
+\title{\LARGE \bf
+Optimized search system for SNOMED CT \& IDC
+}
+
+%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
+%         \thanks{*Use the $\backslash$thanks command to put information here}\\
+%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
+%         University of Twente\\
+%         7500 AE Enschede, The Netherlands\\
+%         {\tt\small h.kwakernaak@autsubmit.com}}
+%         \hspace*{ 0.5 in}
+%         \parbox{3 in}{ \centering Pradeep Misra**
+%         \thanks{**The footnote marks may be inserted manually}\\
+%        Department of Electrical Engineering \\
+%         Wright State University\\
+%         Dayton, OH 45435, USA\\
+%         {\tt\small pmisra@cs.wright.edu}}
+%}
+
+\author{Guillermo Facundo$^{1}$, Aquilino Juan Fuerte$^{2}$ and Jose Emilio Labra$^{3}.$% <-this % stops a space
+\thanks{$^{1}$G. Facundo is a student and a researcher at the Semantic Web research group at the University of Oviedo.
+        {\tt\small h.kwakernaak at papercept.net}}%
+\thanks{$^{2}$A.J. Fuerte is with the Department of Electrical Engineering, Wright State University,
+        Dayton, OH 45435, USA
+        {\tt\small p.misra at ieee.org}}%
+\thanks{$^{3}$J.E. Labra is with the Department of Electrical Engineering, Wright State University,
+        Dayton, OH 45435, USA
+        {\tt\small p.misra at ieee.org}}%
+}
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+This paper covers the design, implementation and deployment of an optimized search system for SNOMED CT and ICD. This system was made for the company IZERTIS S.L.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{INTRODUCTION}
+
+Currently most of the electronic health system use SNOMED CT or ICD in some way to identify the medical terms on the patients record. To be more precise, SNOMED CT was build as an ontology, that is, to infer and extract knowledge. On the other hand ICD was designed only for classification and statistical reports, therefore is the system doctors use to identify medical terms on paper. So, both systems have as a disadvantage the advantage of the other system; and that's why IZERTIS launch the project to made a unified system for both technologies. 
+
+\subsection{SNOMED CT}
+
+SNOMED CT is a \textbf{computer process-able collection} of medical terms providing codes, terms, synonyms and definitions used in clinical documentation and reporting. Its main objective is to provide the most comprehensive and multilingual clinical health care terminology. Currently it is maintained by SNOMED International, a non-profit standards development organization.
+
+\subsection{ICD}
+
+The International Statistical Classification of Diseases and Related Health Problems (ICD) is the international standard diagnostic tool for epidemiology, health management and clinical purposes. It is maintained by the World Health Organization, which coordinates with the United Nations System. It is used worldwide for morbidity and mortality \textbf{statistics}, reimbursement systems, and automated decision support in health care. 
+As has been explained SNOMED is a computer process-able collection of terms or ontology meanwhile ICD is a classification. Therefore sometimes it is recommended to use one or another, but other times might be useful to use both technologies. There is when problems came around, that is because currently there’s not a system that joins SNOMED CT and ICD on its versions 9 and 10.
+
+\section{DATA MODEL}
+In order to join both systems the best solution was to build a model from scratch that relates both systems, SNOMED and ICD.
+\begin{lstlisting}
+termId: String
+descriptions: [String,...]
+terminology : (snomed | icd9 | icd10)
+relatedTerms: [
+    termId: String
+    descriptions: [String, ...]
+    terminology: (snomed | icd9 | icd10)
+]
+\end{lstlisting}
+
+On the previous model we can store both systems terms, SNOMED and ICD, that is because both terminologies have a unique identifier for a given term and that term has a description. And moreover, by removing unused data from the old models we reduce the size of the model by 13 times. 
+\begin{center}
+\begin{tabular}{|c|c|c}
+\cline{1-2}
+\textbf{MODEL} & \textbf{SIZE}  \\ \cline{1-2}
+SNOMED CT      & 6.41 Gb        \\ \cline{1-2}
+ICD9 + ICD10   & 2 Gb           \\ \cline{1-2}
+CUSTOM MODEL   & 0.5Gb          \\ \cline{1-2}
+\end{tabular}
+\end{center}
+
+\section{IMPLEMENTATION}
+In order to implement the model proposed several DBMS systems where explored, tabular SQL, graph databases, RDF databases and document databases. After taking in to account the dynamism of the models, the ammount of storage needed and the speed requested the most suitable system to implement the persistence of the system was the document database MongoDB.
+
+To implement the API layer we choose Java as main language and Spring Boot as a framework to drive the development. For that was used the known MVC architecture with a single repository, single service and single controller. As an entry-point we have /api/search with the query params q as the text to search and the optional filter description or code to improve the performance at some queries.
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{APPENDIX}
+
+
+
+\section*{ACKNOWLEDGMENT}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{c1} “4. Aspectos básicos de SNOMED CT - SNOMED International Release Management - SNOMED Confluence.” [Online]. Available: https://confluence.ihtsdotools.org/pages/viewpage.action?pageId=38256207. [Accessed: 17-Nov-2018].
+\bibitem{c2} D. L. Hoyert, “ICD International Classification of Diseases,” p. 24.
+\bibitem{c3} R. Jean-Marie et al., “ICD-11 and SNOMED CT Common Ontology: Circulatory System,” Studies in Health Technology and Informatics, pp. 1043–1047, 2014.
+\bibitem{c4} “SNOMED CT,” Wikipedia. 12-Nov-2018.
+\bibitem{c5} J. Chase, “SNOMED CT, ICD-9 and ICD-10,” p. 54.
+\bibitem{c6} “The Differences between ICD-9 and ICD-10,” Fact Sheet, p. 4, 2014.
+\bibitem{c7} G. Jiang, H. R. Solbrig, and C. G. Chute, “Using Semantic Web technology to support icd-11 textual definitions authoring,” J Biomed Semantics, vol. 4, p. 11, Apr. 2013.
+
+
+
+\end{thebibliography}
+
+
+
+
+\end{document}
