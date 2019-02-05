@@ -43,6 +43,7 @@ docker-compose up;
 ```
   
 Notice that once the docker-compose services start it will take between 1 and 5 minutes for services to start. Once the services started you will be able to connect at http://localhost:8082. Find more information about the API [here](/api).
+This API has been documented with **Swagger 2** so at http://localhost:8082/swagger-ui.html you can try / test the behaviour of the endpoint.
 
 
 ## Versions included
