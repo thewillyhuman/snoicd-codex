@@ -1,5 +1,6 @@
 package org.weso.snoicd.search;
 
+import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.ResponseToQuery;
 
 @FunctionalInterface
@@ -10,6 +11,6 @@ public interface Search {
 	 * 
 	 * @return the corresponding ResponseEntity after the execution of the query.
 	 */
-	public ResponseToQuery execute();
+	public ResponseToQuery execute(ConceptsService service);
 
 }

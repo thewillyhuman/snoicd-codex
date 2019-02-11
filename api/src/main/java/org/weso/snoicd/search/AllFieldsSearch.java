@@ -9,27 +9,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AllFieldsSearch implements Search {
 
-	private ConceptsService service;
 	private String textToFind;
 
-	public AllFieldsSearch(ConceptsService service, String textToFind) {
+	public AllFieldsSearch(String textToFind) {
 		log.info("Search by all fields created.");
-		this.service = service;
 		this.textToFind = textToFind;
 	}
 
 	@Override
-	public ResponseToQuery execute() {
+	public ResponseToQuery execute(ConceptsService service) {
 		log.info("Executing search by all fields.");
 		ResponseToQuery rtq = new ResponseToQuery();
 		
 		rtq.setQuery(this.textToFind);
 
 		// Get results for code.
-		rtq.setResult(this.service.getConceptByCode(this.textToFind));
+		rtq.setResult(service.getConceptByCode(this.textToFind));
 
 		// Add with the results for description.
-		rtq.getResult().addAll(this.service.getConceptsSearch(this.textToFind));
+		rtq.getResult().addAll(service.getConceptsSearch(this.textToFind));
 
 		// And finally set the status to OK.
 		rtq.setStatus(HttpStatus.OK);

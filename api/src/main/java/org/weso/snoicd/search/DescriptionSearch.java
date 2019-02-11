@@ -9,22 +9,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DescriptionSearch implements Search {
 	
-	private ConceptsService service;
 	private String description;
 	
-	public DescriptionSearch(ConceptsService service, String description) {
+	public DescriptionSearch(String description) {
 		log.info("Search by description created.");
-		this.service = service;
 		this.description = description;
 	}
 
 	@Override
-	public ResponseToQuery execute() {
+	public ResponseToQuery execute(ConceptsService service) {
 		log.info("Executing search by description.");
 		ResponseToQuery rtq = new ResponseToQuery();
 		
 		rtq.setQuery(this.description);
-		rtq.setResult(this.service.getConceptsSearch(this.description));
+		rtq.setResult(service.getConceptsSearch(this.description));
 		rtq.setStatus(HttpStatus.OK);
 		
 		return rtq;

@@ -9,22 +9,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CodeSearch implements Search {
 	
-	private ConceptsService service;
 	private String code;
 	
-	public CodeSearch(ConceptsService service, String code) {
+	public CodeSearch(String code) {
 		log.info("Search by code created.");
-		this.service = service;
 		this.code = code;
 	}
 
 	@Override
-	public ResponseToQuery execute() {
+	public ResponseToQuery execute(ConceptsService service) {
 		log.info("Executing search by code.");
 		ResponseToQuery rtq = new ResponseToQuery();
 		
 		rtq.setQuery(code);
-		rtq.setResult(this.service.getConceptByCode(this.code));
+		rtq.setResult(service.getConceptByCode(this.code));
 		rtq.setStatus(HttpStatus.OK);
 		
 		return rtq;

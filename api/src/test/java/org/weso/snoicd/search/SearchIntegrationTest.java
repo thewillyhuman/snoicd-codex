@@ -69,13 +69,13 @@ public class SearchIntegrationTest {
 	public void searchByCodeTest() {
 		Concept c = repo.findByCode( "C-1" ).get( 0 );
 		
-		assertEquals( c, new CodeSearch( service, "C-1" ).execute().getResult().get( 0 ) );
+		assertEquals( c, new CodeSearch("C-1" ).execute(this.service).getResult().get( 0 ) );
 	}
 	
 	@Test
 	public void searchByDescriptionTest() {
 		Concept c = repo.findByCode( "C-1" ).get( 0 );
 		
-		assertEquals( c, new DescriptionSearch( service, "Description 1" ).execute().getResult().get( 0 ) );
+		assertEquals( c, new DescriptionSearch("Description 1" ).execute(this.service).getResult().get( 0 ) );
 	}
 }

@@ -1,6 +1,7 @@
 package org.weso.snoicd.search;
 
 import org.springframework.http.HttpStatus;
+import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.ResponseToQuery;
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 public class InvalidSearch implements Search {
 
 	@Override
-	public ResponseToQuery execute() {
+	public ResponseToQuery execute(ConceptsService service) {
 		log.info("Filter was: invalid.");
 		log.info("SEARCH invalidated.");
 		

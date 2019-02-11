@@ -62,7 +62,7 @@ public class ConceptsController {
 
 		log.info("SEARCH request received.");
 		
-		rtq = new SearchExecutor(q, filter, this.service).execute();
+		rtq = new SearchExecutor(q, filter, this.service).execute(this.service);
 		
 		return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 	}
