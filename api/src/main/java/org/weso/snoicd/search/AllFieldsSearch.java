@@ -22,12 +22,14 @@ public class AllFieldsSearch implements Search {
 	public ResponseToQuery execute() {
 		log.info("Executing search by all fields.");
 		ResponseToQuery rtq = new ResponseToQuery();
+		
+		rtq.setQuery(this.textToFind);
 
 		// Get results for code.
 		rtq.setResult(this.service.getConceptByCode(this.textToFind));
 
 		// Add with the results for description.
-		rtq.getResult().addAll(this.service.getConceptsByDescription(this.textToFind));
+		rtq.getResult().addAll(this.service.getConceptsSearch(this.textToFind));
 
 		// And finally set the status to OK.
 		rtq.setStatus(HttpStatus.OK);

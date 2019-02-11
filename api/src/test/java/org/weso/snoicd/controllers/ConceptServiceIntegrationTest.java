@@ -74,10 +74,10 @@ public class ConceptServiceIntegrationTest {
 	}
 	
 	@Test
-	public void getConceptByDescriptionTest() {
+	public void getConceptSearchTest() {
 		Concept c = repo.findByCode( "C-1" ).get( 0 );
 		
-		assertEquals( c, service.getConceptsByDescription( "Description 1" ).get( 0 ) );
+		assertEquals( c, service.getConceptsSearch( "Description 1" ).get( 0 ) );
 		
 	}
 

@@ -25,8 +25,6 @@ package org.weso.snoicd.services;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
@@ -42,10 +40,6 @@ public class ConceptsService {
 
 	public List<Concept> getConceptByCode(String code) {
 		return this.repository.findByCode(code);
-	}
-
-	public List<Concept> getConceptsByDescription(@NotNull String query) {
-		return this.repository.findByDescription(query);
 	}
 	
 	public List<Concept> getConceptsSearch(String query) {
