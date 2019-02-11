@@ -2,64 +2,44 @@
 
 The snoicd-codex API provide two endpoints for REST requests.
 
-## `/api/codes/{codeId}`
-**Definition:** This endpoint returns the term that matches the codeId. At the time it is only safe to use the snomedCode.  
+## `/api/search?q=copper+fever`
+**Definition:** This endpoint returns those terms that contains the search query in their descriptions or code.  
 **Return object:**
 ```
-{
-  "snomedCode": string,
-  "icd9Code": string,
-  "icd10Code": string,
+[{
+  "code": String,
+  "terminology_name": (snomed | icd_9 | icd_10),
   "descriptions": [
-    {
-      "language": string,
-      "description": string
-    }
-  ],
-  "children": [
-    {
-      "snomedCode": string,
-      "icd9Code": string,
-      "icd10Code": string,
-      "descriptions": [
-        {
-          "language": string,
-          "description": string
-        }
-      ]
-    }
-  ]
-}
+    String,
+    ... ],
+  "related_codes": [{
+    "code": String,
+    "terminology_name": (snomed | icd_9 | icd_10),
+    "descriptions": [
+      String,
+      ...
+    },... ]
+  }, ...
+]
 ```
 
-## `/api/search?q=copper+fever`
-**Definition:** This endpoint returns those terms that contains the search query in their descriptions.  
+## `/api/search?q=copper+fever&filter=(description|code)`
+**Definition:** This endpoint returns those terms that contains the search query in their given filter parameter.  
 **Return object:**
 ```
-[
-  {
-    "snomedCode": string,
-    "icd9Code": string,
-    "icd10Code": string,
+[{
+  "code": String,
+  "terminology_name": (snomed | icd_9 | icd_10),
+  "descriptions": [
+    String,
+    ... ],
+  "related_codes": [{
+    "code": String,
+    "terminology_name": (snomed | icd_9 | icd_10),
     "descriptions": [
-      {
-        "language": string,
-        "description": string
-      }
-    ],
-    "children": [
-      {
-        "snomedCode": string,
-        "icd9Code": string,
-        "icd10Code": string,
-        "descriptions": [
-          {
-            "language": string,
-            "description": string
-          }
-        ]
-      }, ...
-    ]
+      String,
+      ...
+    },... ]
   }, ...
 ]
 ```
