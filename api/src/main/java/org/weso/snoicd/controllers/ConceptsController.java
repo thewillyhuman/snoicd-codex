@@ -95,4 +95,52 @@ public class ConceptsController {
 			return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 		}
 	}
+	
+	/**
+	 * Defines an entry point for the search of concepts in the system.
+	 * 
+	 * @param q      is the query to search.
+	 * @param filter to apply if present.
+	 * @return a ResponseEntity object with a ResponseToQuery object in the body
+	 *         containing the result of executing the given query.
+	 */
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ResponseEntity<ResponseToQuery> search(@RequestParam @NotNull String q,
+			@RequestParam(required = false) @Nullable String filter) {
+
+		log.info("SEARCH request received.");
+		System.out.println(q);
+		// The response JSON to the query submitted.
+		ResponseToQuery rtq;
+	
+		// If the filter is present in the query...
+		if (filter != null && filter != "" && filter != " ") {
+			log.info("Filter found.");
+
+			// If we filter by code.
+			if (filter.equals("code")) {
+				log.info("Filter was: code.");
+				rtq = new CodeSearch(this.service, q).execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
+
+				// If we filter only by description.
+			} else if (filter.equals("description")) {
+				log.info("Filter was: description.");
+				System.out.println(q);
+				rtq = new DescriptionSearch(this.service, q).execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
+
+				// In any other case the query is not accepted.
+			} else {
+				rtq = new InvalidSearch().execute();
+				return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
+			}
+
+			// If there is no filter present, then...
+		} else {
+			log.info("No filter found.");
+			rtq = new AllFieldsSearch(this.service, q).execute();
+			return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
+		}
+	}
 }

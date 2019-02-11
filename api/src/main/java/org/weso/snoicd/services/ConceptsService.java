@@ -48,4 +48,23 @@ public class ConceptsService {
 		return this.repository.findByDescription(query);
 	}
 	
+	public List<Concept> getConceptsSearch(String query) {
+		String[] terms = query.split("\\ ");
+		StringBuilder q = new StringBuilder();
+
+		for(String s : terms) {
+			q.append( "\"" );
+			q.append(s);
+			q.append( "\"" );
+			q.append( " " );
+		} 
+		
+		// \"guillain\" \"barre\"
+		// \"guillain\" \"barre\"
+		
+		System.out.println(q.toString());
+		
+		return this.repository.search(q.toString());
+	}
+	
 }

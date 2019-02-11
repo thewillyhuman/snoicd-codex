@@ -65,5 +65,8 @@ public interface ConceptsRepository extends MongoRepository<Concept, ObjectId> {
 	 */
 	@Query("{'descriptions': {$regex: ?0, $options: 'i' }})")
 	public List<Concept> findByDescription(String description);
+	
+	@Query("{ $text: { $search: ?0 } }")
+	public List<Concept> search(String query);
 
 }
