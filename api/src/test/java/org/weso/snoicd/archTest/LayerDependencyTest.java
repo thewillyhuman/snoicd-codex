@@ -49,8 +49,6 @@ public class LayerDependencyTest {
             classes().that().resideInAPackage("..services..")
                     .should().onlyAccessClassesThat().resideInAnyPackage("..services..", "..repositories..", "java..");
 
-    // 'dependOn' catches a wider variety of violations, e.g. having fields of type, having method parameters of type, extending type ...
-
     @ArchTest
     public static final ArchRule services_should_not_depend_on_controllers =
             noClasses().that().resideInAPackage("..services..")
