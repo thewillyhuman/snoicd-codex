@@ -66,6 +66,16 @@ public interface ConceptsRepository extends MongoRepository<Concept, ObjectId> {
 	@Query("{'descriptions': {$regex: ?0, $options: 'i' }})")
 	public List<Concept> findByDescription(String description);
 	
+	/**
+	 * Finds and returns a {@link List} of concepts that contains on its
+	 * descriptions the given text. As each {@link Concept} can have multiple
+	 * descriptions the query check that the given description is found completely
+	 * or partially at any description of the code. It does not differentiate
+	 * between upper and lower cases.
+	 * 
+	 * @param query to be executed
+	 * @return the list of concepts that match the given query.
+	 */
 	@Query("{ $text: { $search: ?0 } }")
 	public List<Concept> search(String query);
 

@@ -21,7 +21,7 @@ public class CodeSearch implements Search {
 		log.info("Executing search by code.");
 		ResponseToQuery rtq = new ResponseToQuery();
 		
-		rtq.setQuery(code);
+		rtq.setQuery(this.code);
 		rtq.setResult(service.getConceptByCode(this.code));
 		rtq.setStatus(HttpStatus.OK);
 		

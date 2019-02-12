@@ -10,7 +10,7 @@ public class SearchExecutor implements Search {
 
 	private Search searchStrategy;
 
-	public SearchExecutor(String query, String filter, ConceptsService service) {
+	public SearchExecutor(String query, String filter) {
 		
 		if (filter != null && filter != "" && filter != " ") {
 			log.info("Filter found.");
@@ -27,6 +27,7 @@ public class SearchExecutor implements Search {
 
 				// In any other case the query is not accepted.
 			} else {
+				log.warn("Invalid search found.");
 				searchStrategy = new InvalidSearch();
 			}
 			

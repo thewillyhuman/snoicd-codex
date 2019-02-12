@@ -38,10 +38,21 @@ public class ConceptsService {
 	@Autowired
 	ConceptsRepository repository;
 
+	/**
+	 * Gets the concept code.
+	 * @param code to be look for.
+	 * @return the list of concepts that match the given code.
+	 */
 	public List<Concept> getConceptByCode(String code) {
 		return this.repository.findByCode(code);
 	}
 	
+	/**
+	 * Gets the concepts to search for.
+	 * 
+	 * @param query to be executed.
+	 * @return the list of words formatted as \"word1\" \"word2\"
+	 */
 	public List<Concept> getConceptsSearch(String query) {
 		String[] terms = query.split("\\ ");
 		StringBuilder q = new StringBuilder();
@@ -52,11 +63,6 @@ public class ConceptsService {
 			q.append( "\"" );
 			q.append( " " );
 		} 
-		
-		// \"guillain\" \"barre\"
-		// \"guillain\" \"barre\"
-		
-		System.out.println(q.toString());
 		
 		return this.repository.search(q.toString());
 	}

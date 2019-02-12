@@ -46,6 +46,7 @@ public class ConceptsController {
 	@Autowired
 	ConceptsService service;
 	
+	// The response to the executed query.
 	private ResponseToQuery rtq;
 
 	/**
@@ -62,7 +63,7 @@ public class ConceptsController {
 
 		log.info("SEARCH request received.");
 		
-		rtq = new SearchExecutor(q, filter, this.service).execute(this.service);
+		rtq = new SearchExecutor(q, filter).execute(this.service);
 		
 		return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
 	}
