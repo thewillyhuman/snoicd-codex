@@ -219,6 +219,7 @@ public class ConceptScripts {
 	@Test @Ignore
 	public void addIcd9SnomedMapping() {
 		MongoClient client = new MongoClient();
+		@SuppressWarnings("deprecation")
 		DB database = client.getDB("snoicd-codex");
 		DBCollection collection = database.getCollection("snomed-icd9-map");
 		
@@ -274,6 +275,7 @@ public class ConceptScripts {
 	@Test @Ignore
 	public void addIcd10SnomedMapping() {
 		MongoClient client = new MongoClient();
+		@SuppressWarnings("deprecation")
 		DB database = client.getDB("snoicd-codex");
 		DBCollection collection = database.getCollection("snomed-icd-map");
 		
