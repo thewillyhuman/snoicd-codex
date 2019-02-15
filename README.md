@@ -17,7 +17,7 @@ These instructions give the most direct path to work with this module.
 ### System Requirements
 As the project is developed in java macOS, Windows and Linux distributions are natively supported. Of course you will need the latest **JDK** available and haveing **Docker** installed on your computer. Also, depending on where are you going to run the database, you will need internet connection or MongoDB installed and running on your machine.
 
-#### Java Development Kit (JDK)
+#### Java Development Kit (JDK) :warning: No support for java 10 nor 11 :warning:
 A Java Development Kit (JDK) is a program development environment for writing Java applets and applications. It consists of a runtime environment that "sits on top" of the operating system layer as well as the tools and programming that developers need to compile, debug, and run applets and applications written in the Java programming language.
 
 If you do not has the latest stable version download you can download it [here](http://www.oracle.com/technetwork/java/javase/downloads).
