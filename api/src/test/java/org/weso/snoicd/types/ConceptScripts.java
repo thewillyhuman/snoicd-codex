@@ -30,13 +30,13 @@ import org.bson.BSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.ConceptsRepository;
+import org.weso.snoicd.repositories.Persistence;
+import org.weso.snoicd.repositories.PersistenceImpl;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -52,8 +52,7 @@ import com.mongodb.MongoClient;
 @DirtiesContext
 public class ConceptScripts {
 
-	@Autowired
-	ConceptsRepository repo;
+	Persistence repo = PersistenceImpl.instance;
 
 	@Test @Ignore
 	public void insertOne() {
@@ -67,7 +66,7 @@ public class ConceptScripts {
 
 		c.getRelatedCodes().add(sc);
 
-		repo.save(c);
+		repo.saveConcept(c);
 	}
 
 	@Test @Ignore
@@ -80,7 +79,7 @@ public class ConceptScripts {
 
 		c.getRelatedCodes().add(sc);
 
-		repo.save(c);
+		repo.saveConcept(c);
 
 	}
 
@@ -121,7 +120,7 @@ public class ConceptScripts {
 			}
 			
 
-			repo.save(concept);
+			repo.saveConcept(concept);
 			
 			System.out.println(j++ + "/" + t);
 		}
@@ -164,7 +163,7 @@ public class ConceptScripts {
 			concept.getDescriptions().add(result.get("Desc9").toString());
 			concept.setTerminologyName("icd_9");
 					
-			repo.save(concept);
+			repo.saveConcept(concept);
 			
 			System.out.println(j++ + "/" + t);
 		}
@@ -207,7 +206,7 @@ public class ConceptScripts {
 			concept.getDescriptions().add(result.get("dec10").toString());
 			concept.setTerminologyName("icd_10");
 					
-			repo.save(concept);
+			repo.saveConcept(concept);
 			
 			System.out.println(j++ + "/" + t);
 		}
@@ -259,12 +258,12 @@ public class ConceptScripts {
 				
 				for(Concept c : snomedCodesToAddMapping) {
 					c.getRelatedCodes().addAll(icd9SimpleCodes);
-					repo.save(c);
+					repo.saveConcept(c);
 				}
 				
 				for(Concept c : icd9CodesToAddMapping) {
 					c.getRelatedCodes().addAll(snomedSimpleCodes);
-					repo.save(c);
+					repo.saveConcept(c);
 				}
 			}
 			
@@ -315,12 +314,12 @@ public class ConceptScripts {
 				
 				for(Concept c : snomedCodesToAddMapping) {
 					c.getRelatedCodes().addAll(icd9SimpleCodes);
-					repo.save(c);
+					repo.saveConcept(c);
 				}
 				
 				for(Concept c : icd9CodesToAddMapping) {
 					c.getRelatedCodes().addAll(snomedSimpleCodes);
-					repo.save(c);
+					repo.saveConcept(c);
 				}
 			}
 			

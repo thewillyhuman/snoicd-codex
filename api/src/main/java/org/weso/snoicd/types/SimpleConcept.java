@@ -26,8 +26,6 @@ package org.weso.snoicd.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 
 /**
@@ -47,7 +45,6 @@ public class SimpleConcept {
 	private List<String> descriptions;
 
 	// The terminology name.
-	@JsonProperty("terminology_name")
 	private String terminologyName;
 
 	/**

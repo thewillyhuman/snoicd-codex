@@ -23,8 +23,11 @@
  ******************************************************************************/
 package org.weso.snoicd;
 
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.weso.snoicd.repositories.WarmUpMemory;
 
 /**
  * Start up entry point for the snoicd API. By executing this class you will
@@ -42,6 +45,14 @@ public class StartUp {
 	 * @param args to run the application.
 	 */
 	public static void main(String[] args) {
+		
+		try {
+			WarmUpMemory.init();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		SpringApplication.run(StartUp.class, args);
 	}
 }

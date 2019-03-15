@@ -36,5 +36,4 @@ public class AllFieldsSearch implements Search {
 		// TODO Auto-generated method stub
 		return rtq;
 	}
-
 }

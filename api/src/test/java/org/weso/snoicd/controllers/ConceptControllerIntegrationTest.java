@@ -25,7 +25,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.ConceptsRepository;
+import org.weso.snoicd.repositories.Persistence;
+import org.weso.snoicd.repositories.PersistenceImpl;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 
@@ -43,8 +44,8 @@ public class ConceptControllerIntegrationTest {
 	private MockMvc mockMvc;
 	private MockHttpSession session;
 
-	@Autowired
-	ConceptsRepository repo;
+	
+	Persistence repo = PersistenceImpl.instance;
 
 	@MockBean
 	private RestTemplate template;
@@ -65,7 +66,7 @@ public class ConceptControllerIntegrationTest {
 
 		c.getRelatedCodes().add(sc);
 
-		repo.save(c);
+		repo.saveConcept(c);
 
 		assertEquals(c, repo.findByCode("C-1").get(0));
 	}

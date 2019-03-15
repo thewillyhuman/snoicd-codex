@@ -22,7 +22,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.ConceptsRepository;
+import org.weso.snoicd.repositories.Persistence;
+import org.weso.snoicd.repositories.PersistenceImpl;
 import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
@@ -36,8 +37,7 @@ import TestKit.IntegrationTest;
 @DirtiesContext
 public class SearchIntegrationTest {
 	
-	@Autowired
-	private ConceptsRepository repo;
+	Persistence repo = PersistenceImpl.instance;
 	
 	@Autowired
 	private ConceptsService service;
@@ -55,7 +55,7 @@ public class SearchIntegrationTest {
 
 		c.getRelatedCodes().add(sc);
 
-		repo.save(c);
+		repo.saveConcept(c);
 
 		assertEquals(c, repo.findByCode("C-1").get(0));
 	}
@@ -76,6 +76,6 @@ public class SearchIntegrationTest {
 	public void searchByDescriptionTest() {
 		Concept c = repo.findByCode( "C-1" ).get( 0 );
 		
-		assertEquals( c, new DescriptionSearch("Description 1" ).execute(this.service).getResult().get( 0 ) );
+		assertEquals( c, new DescriptionSearch("description" ).execute(this.service).getResult().get( 0 ) );
 	}
 }

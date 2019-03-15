@@ -25,7 +25,6 @@ package org.weso.snoicd.controllers;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,9 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class ConceptsController {
 
-	// The service that will communicate with the repository.
-	@Autowired
-	ConceptsService service;
+	ConceptsService service = new ConceptsService();
 	
 	// The response to the executed query.
 	private ResponseToQuery rtq;
@@ -62,7 +59,7 @@ public class ConceptsController {
 			@RequestParam(required = false) @Nullable String filter) {
 
 		log.info("SEARCH request received.");
-		
+		System.err.println( q );
 		rtq = new SearchExecutor(q, filter).execute(this.service);
 		
 		return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());

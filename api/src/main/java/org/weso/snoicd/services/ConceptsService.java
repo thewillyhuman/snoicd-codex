@@ -25,18 +25,17 @@ package org.weso.snoicd.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
-import org.weso.snoicd.repositories.ConceptsRepository;
+import org.weso.snoicd.repositories.Persistence;
+import org.weso.snoicd.repositories.PersistenceImpl;
 import org.weso.snoicd.types.Concept;
 
 @EntityScan
 @Service
 public class ConceptsService {
 	
-	@Autowired
-	ConceptsRepository repository;
+	Persistence repository = PersistenceImpl.instance;
 
 	/**
 	 * Gets the concept code.
@@ -51,20 +50,11 @@ public class ConceptsService {
 	 * Gets the concepts to search for.
 	 * 
 	 * @param query to be executed.
-	 * @return the list of words formatted as \"word1\" \"word2\"
+	 * @return the list of concepts.
 	 */
 	public List<Concept> getConceptsSearch(String query) {
-		String[] terms = query.split("\\ ");
-		StringBuilder q = new StringBuilder();
-
-		for(String s : terms) {
-			q.append( "\"" );
-			q.append(s);
-			q.append( "\"" );
-			q.append( " " );
-		} 
 		
-		return this.repository.search(q.toString());
+		return this.repository.search(query);
 	}
 	
 }
