@@ -57,7 +57,7 @@ public class SearchIntegrationTest {
 
 		repo.saveConcept(c);
 
-		assertEquals(c, repo.findByCode("C-1").get(0));
+		assertEquals(c, repo.findByCode("C-1").iterator().next());
 	}
 
 	@After
@@ -67,15 +67,18 @@ public class SearchIntegrationTest {
 
 	@Test
 	public void searchByCodeTest() {
-		Concept c = repo.findByCode( "C-1" ).get( 0 );
-		
-		assertEquals( c, new CodeSearch("C-1" ).execute(this.service).getResult().get( 0 ) );
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
+		//repo.saveConcept(c);
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service));
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult());
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult().iterator());
+		assertEquals( c, new CodeSearch( "C-1" ).execute(this.service).getResult().iterator().next() );
 	}
 	
 	@Test
 	public void searchByDescriptionTest() {
-		Concept c = repo.findByCode( "C-1" ).get( 0 );
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
 		
-		assertEquals( c, new DescriptionSearch("description" ).execute(this.service).getResult().get( 0 ) );
+		assertEquals( c, new DescriptionSearch("description" ).execute(this.service).getResult().iterator().next() );
 	}
 }

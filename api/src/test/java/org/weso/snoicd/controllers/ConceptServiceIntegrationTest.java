@@ -57,7 +57,7 @@ public class ConceptServiceIntegrationTest {
 
 		repo.saveConcept(c);
 
-		assertEquals(c, repo.findByCode("C-1").get(0));
+		assertEquals(c, repo.findByCode("C-1").iterator().next());
 	}
 
 	@After
@@ -67,17 +67,17 @@ public class ConceptServiceIntegrationTest {
 	
 	@Test
 	public void getConceptByCodeTest() {
-		Concept c = repo.findByCode( "C-1" ).get( 0 );
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
 		
-		assertEquals( c, service.getConceptByCode( "C-1" ).get( 0 ) );
+		assertEquals( c, service.getConceptByCode( "C-1" ).iterator().next() );
 		
 	}
 	
 	@Test
 	public void getConceptSearchTest() {
-		Concept c = repo.findByCode( "C-1" ).get( 0 );
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
 		
-		assertEquals( c, service.getConceptsSearch( "description" ).get( 0 ) );
+		assertEquals( c, service.getConceptsSearch( "description" ).iterator().next() );
 		
 	}
 

@@ -23,7 +23,7 @@
  ******************************************************************************/
 package org.weso.snoicd.types;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 
@@ -47,6 +47,6 @@ public class ResponseToQuery {
 	private String query;
 
 	// The lists of results.
-	private List<Concept> result;
+	private Set<Concept> result;
 
 }

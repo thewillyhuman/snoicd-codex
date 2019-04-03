@@ -48,7 +48,7 @@ public class ConceptRepositoryIntegrationTest {
 
 		repo.saveConcept(c);
 		
-		assertEquals(c, repo.findByCode("C-1").get(0));
+		assertEquals(c, repo.findByCode("C-1").iterator().next());
 	}
 	
 	@Test
@@ -63,13 +63,13 @@ public class ConceptRepositoryIntegrationTest {
 
 		repo.saveConcept(c);
 		
-		assertEquals(repo.findByCode("C-1").get(0).getRelatedCodes().size(), 0);
+		assertEquals(repo.findByCode("C-1").iterator().next().getRelatedCodes().size(), 0);
 		
-		Concept fromRepo = repo.findByCode("C-1").get(0);
+		Concept fromRepo = repo.findByCode("C-1").iterator().next();
 		fromRepo.getRelatedCodes().add(sc);
 		repo.saveConcept(fromRepo);
 		
-		assertEquals(repo.findByCode("C-1").get(0).getRelatedCodes().size(), 1);
+		assertEquals(repo.findByCode("C-1").iterator().next().getRelatedCodes().size(), 1);
 	}
 	
 	@Test
@@ -86,7 +86,7 @@ public class ConceptRepositoryIntegrationTest {
 
 		repo.saveConcept(c);
 		
-		assertEquals(c, repo.findByCode("C-1").get(0));
+		assertEquals(c, repo.findByCode("C-1").iterator().next());
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ public class ConceptRepositoryIntegrationTest {
 
 		repo.saveConcept(c);
 		
-		assertEquals(c, repo.findByDescription("description").get(0));
+		assertEquals(c, repo.findByDescription("description").iterator().next());
 	}
 
 }

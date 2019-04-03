@@ -22,7 +22,7 @@ public class DescriptionSearch implements Search {
 		ResponseToQuery rtq = new ResponseToQuery();
 		
 		rtq.setQuery(this.description);
-		rtq.setResult(service.getConceptsSearch(this.description));
+		rtq.setResult(service.getConceptByDescription(this.description));
 		rtq.setStatus(HttpStatus.OK);
 		
 		return rtq;

@@ -68,7 +68,7 @@ public class ConceptControllerIntegrationTest {
 
 		repo.saveConcept(c);
 
-		assertEquals(c, repo.findByCode("C-1").get(0));
+		assertEquals(c, repo.findByCode("C-1").iterator().next());
 	}
 
 	@After

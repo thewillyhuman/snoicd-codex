@@ -23,7 +23,7 @@
  ******************************************************************************/
 package org.weso.snoicd.services;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
@@ -42,8 +42,18 @@ public class ConceptsService {
 	 * @param code to be look for.
 	 * @return the list of concepts that match the given code.
 	 */
-	public List<Concept> getConceptByCode(String code) {
+	public Set<Concept> getConceptByCode(String code) {
 		return this.repository.findByCode(code);
+	}
+	
+	/**
+	 * Gets the concept code.
+	 * @param code to be look for.
+	 * @return the list of concepts that match the given code.
+	 */
+	public Set<Concept> getConceptByDescription(String description) {
+		String[] words = description.split( " " );
+		return this.repository.findByDescription( words );
 	}
 	
 	/**
@@ -52,8 +62,7 @@ public class ConceptsService {
 	 * @param query to be executed.
 	 * @return the list of concepts.
 	 */
-	public List<Concept> getConceptsSearch(String query) {
-		
+	public Set<Concept> getConceptsSearch(String query) {
 		return this.repository.search(query);
 	}
 	

@@ -9,7 +9,7 @@
  */
 package org.weso.snoicd.repositories;
 
-import java.util.List;
+import java.util.Set;
 
 import org.weso.snoicd.types.Concept;
 
@@ -21,11 +21,11 @@ import org.weso.snoicd.types.Concept;
  */
 public interface Persistence {
 	
-	public List<Concept> findByCode(String code);
+	public Set<Concept> findByCode(String code);
 	
-	public List<Concept> findByDescription(String... words);
+	public Set<Concept> findByDescription(String... words);
 	
-	public List<Concept> search(String query);
+	public Set<Concept> search(String query);
 	
 	public void saveConcept(Concept concept);
 	

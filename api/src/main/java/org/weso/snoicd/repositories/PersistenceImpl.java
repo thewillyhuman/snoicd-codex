@@ -9,13 +9,12 @@
  */
 package org.weso.snoicd.repositories;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.weso.snoicd.types.Concept;
+import org.weso.snoicd.utils.StringNormalizatior;
 
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.BigTableProducer;
@@ -54,7 +53,8 @@ public class PersistenceImpl implements Persistence {
 					@SuppressWarnings("unchecked")
 					@Override
 					public <K, V> boolean index( BigTable<K, V> table, K key, V value ) {
-						String[] keys = key.toString().split( " " );
+						String normalizedKey = StringNormalizatior.normalize(key.toString());
+						String[] keys = normalizedKey.split( " " );
 						
 						for(String ikey : keys) {
 							if (ikey.length() >= 3) {
@@ -75,36 +75,33 @@ public class PersistenceImpl implements Persistence {
 	} // Singleton.
 
 	@Override
-	public List<Concept> findByCode( String code ) {
-		List<Concept> ret = new ArrayList<Concept>();
-		System.out.println( "Search by code give as a result: " + this._condeptIDIndex.find( code ) );
+	public Set<Concept> findByCode( String code ) {
 		Set<Concept> set = this._condeptIDIndex.find( code );
-		if(set != null)
-			ret.addAll( set );
-		return ret;
+		if(set == null)
+			set = new HashSet<Concept>();
+		return set;
 	}
 
 	@Override
-	public List<Concept> findByDescription( String... words ) {
-		List<Concept> ret = new ArrayList<Concept>();
+	public Set<Concept> findByDescription( String... words ) {
 		Arrays.stream( words ).forEach( String::toLowerCase );
-		System.out.println(  "Search by description give as a result: " + this._conceptDescriptionIndex.findIntersection( words ) );
 		Set<Concept> set = this._conceptDescriptionIndex.findIntersection( words );
-		ret.addAll( set );
-		return ret;
+		if(set == null)
+			set = new HashSet<Concept>();
+		return set;
 	}
 
 	@Override
-	public List<Concept> search( String query ) {
-		Set<Concept> set = new HashSet<Concept>();
+	public Set<Concept> search( String query ) {
+		Set<Concept> set = findByCode(query);
 		
-		set.addAll( findByCode(query) );
+		if(set == null)
+			set = new HashSet<Concept>();
+		
 		String[] words = query.split( " " );
 		set.addAll( findByDescription( words ) );
 		
-		List<Concept> ret = new ArrayList<Concept>();
-		ret.addAll( set );
-		return ret;
+		return set;
 	}
 
 	@Override

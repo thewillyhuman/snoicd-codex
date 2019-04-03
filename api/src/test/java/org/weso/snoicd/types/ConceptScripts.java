@@ -25,6 +25,7 @@ package org.weso.snoicd.types;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.bson.BSONObject;
 import org.junit.Ignore;
@@ -75,7 +76,7 @@ public class ConceptScripts {
 		sc.setCode("SC-2");
 		sc.getDescriptions().add("Simple description 2");
 
-		Concept c = repo.findByCode("C-1").get(0);
+		Concept c = repo.findByCode("C-1").iterator().next();
 
 		c.getRelatedCodes().add(sc);
 
@@ -232,8 +233,8 @@ public class ConceptScripts {
 			Object snomedCode = result.get("SNOMED_CID");
 			
 			if(icd9Code != null && snomedCode != null) {
-				List<Concept> snomedCodesToAddMapping = repo.findByCode(snomedCode.toString());
-				List<Concept> icd9CodesToAddMapping = repo.findByCode(icd9Code.toString());
+				Set<Concept> snomedCodesToAddMapping = repo.findByCode(snomedCode.toString());
+				Set<Concept> icd9CodesToAddMapping = repo.findByCode(icd9Code.toString());
 				
 				List<SimpleConcept> snomedSimpleCodes = new ArrayList<SimpleConcept>();
 				List<SimpleConcept> icd9SimpleCodes = new ArrayList<SimpleConcept>();
@@ -288,8 +289,8 @@ public class ConceptScripts {
 			Object snomedCode = result.get("conceptId");
 			
 			if(icd9Code != null && snomedCode != null) {
-				List<Concept> snomedCodesToAddMapping = repo.findByCode(snomedCode.toString());
-				List<Concept> icd9CodesToAddMapping = repo.findByCode(icd9Code.toString());
+				Set<Concept> snomedCodesToAddMapping = repo.findByCode(snomedCode.toString());
+				Set<Concept> icd9CodesToAddMapping = repo.findByCode(icd9Code.toString());
 				
 				List<SimpleConcept> snomedSimpleCodes = new ArrayList<SimpleConcept>();
 				List<SimpleConcept> icd9SimpleCodes = new ArrayList<SimpleConcept>();

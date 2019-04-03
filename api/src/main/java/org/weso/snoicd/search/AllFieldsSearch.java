@@ -23,11 +23,8 @@ public class AllFieldsSearch implements Search {
 		
 		rtq.setQuery(this.textToFind);
 
-		// Get results for code.
-		rtq.setResult(service.getConceptByCode(this.textToFind));
-
-		// Add with the results for description.
-		rtq.getResult().addAll(service.getConceptsSearch(this.textToFind));
+		// Get results for code and description.
+		rtq.setResult(service.getConceptsSearch(this.textToFind));
 
 		// And finally set the status to OK.
 		rtq.setStatus(HttpStatus.OK);
