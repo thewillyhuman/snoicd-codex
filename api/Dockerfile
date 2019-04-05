@@ -4,5 +4,6 @@ ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
+COPY concepts.json	concepts.json
 EXPOSE 8082
-ENTRYPOINT ["java","-cp","app:app/lib/*","org.weso.snoicd.StartUp"]
+ENTRYPOINT ["java", "-XX:-UseGCOverheadLimit","-cp","app:app/lib/*","org.weso.snoicd.StartUp"]

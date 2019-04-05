@@ -26,9 +26,7 @@ package org.weso.snoicd.types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -52,8 +50,6 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Concept {
 
-	@JsonIgnore
-	private ObjectId _id;
 	private String code;
 	private String terminologyName;
 	private List<String> descriptions;
