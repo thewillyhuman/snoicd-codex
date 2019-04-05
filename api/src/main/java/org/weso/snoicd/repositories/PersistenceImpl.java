@@ -34,6 +34,7 @@ public class PersistenceImpl implements Persistence {
 	private BigTable<String, Concept> _conceptDescriptionIndex;
 	
 	private PersistenceImpl() { 
+		// Initialization of the concept index.
 		this._condeptIDIndex = new BigTableProducer<String, Concept>()
 				.withIndexEngine( new IndexEngine() {
 					
@@ -45,8 +46,7 @@ public class PersistenceImpl implements Persistence {
 					}
 				}).build();
 		
-		
-		
+		// Initialization of the description index.
 		this._conceptDescriptionIndex = new BigTableProducer<String, Concept>()
 				.withIndexEngine( new IndexEngine() {
 					
@@ -84,7 +84,7 @@ public class PersistenceImpl implements Persistence {
 
 	@Override
 	public Set<Concept> findByDescription( String... words ) {
-		Arrays.stream( words ).forEach( String::toLowerCase );
+		Arrays.stream( words ).forEach((w) -> w = StringNormalizatior.normalize(w) );
 		Set<Concept> set = this._conceptDescriptionIndex.findIntersection( words );
 		if(set == null)
 			set = new HashSet<Concept>();

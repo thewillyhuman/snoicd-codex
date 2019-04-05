@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.weso.snoicd.search.SearchExecutor;
 import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.ResponseToQuery;
-import org.weso.snoicd.utils.StringNormalizatior;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,7 +59,6 @@ public class ConceptsController {
 			@RequestParam(required = false) @Nullable String filter) {
 
 		log.info("SEARCH request received.");
-		q = StringNormalizatior.normalize(q);
 		System.err.println( q );
 		rtq = new SearchExecutor(q, filter).execute(this.service);
 		
