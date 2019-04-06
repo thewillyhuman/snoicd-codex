@@ -29,6 +29,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.weso.snoicd.repositories.WarmUpMemory;
 
+//import io.micronaut.runtime.Micronaut;
+
 /**
  * Start up entry point for the snoicd API. By executing this class you will
  * start the API on with the parameters given at applications.propperties file.
@@ -54,5 +56,6 @@ public class StartUp {
 		}
 		
 		SpringApplication.run(StartUp.class, args);
+		//Micronaut.run(StartUp.class);
 	}
 }
