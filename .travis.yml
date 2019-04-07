@@ -1,6 +1,6 @@
 language: java
 jdk:
 - oraclejdk8
-script: "cd api; mvn test;"
+script: "cd search-api; mvn test;"
 after_success:
 - bash <(curl -s https://codecov.io/bash)

@@ -1,31 +1,7 @@
 version: '3'
 
 services:
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_DATABASE: snoicd-codex
-    volumes:
-      - ./data/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
-    ports:
-      - "27017:27017"
-
-  mongo-seed:
-    image: mongo
-    volumes:
-      - ./data:/initial-data
-    command:
-      "mongoimport --host mongo --port 27017 --db snoicd-codex --mode upsert --collection concepts --file /initial-data/concepts.json --jsonArray"
-    links:
-      - mongo
-
   api:
-    build: ./api
+    build: ./search-api
     ports:
       - "8082:8082"
-    links:
-      - mongo
-    depends_on:
-      - mongo
-      - mongo-seed
