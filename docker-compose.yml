@@ -2,6 +2,6 @@ version: '3'
 
 services:
   api:
-    build: ./search-api
+    build: ./snoicd-search
     ports:
       - "8082:8082"
