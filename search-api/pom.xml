@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>snomed-icd-resolver</name>
+	<name>snoicd-search</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -41,44 +41,6 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-		
-		<!-- MICRONAUT DEPENDENCIES -->
-
-		<dependency>
-			<groupId>io.micronaut</groupId>
-			<artifactId>runtime</artifactId>
-			<version>1.0.0.RC2</version>
-		</dependency>
-		
-		<dependency>
-          <groupId>io.micronaut</groupId>
-          <artifactId>micronaut-http-client</artifactId>
-          <scope>compile</scope>
-          <version>1.1.0.RC2</version>
-        </dependency>
-        
-        <dependency>
-          <groupId>io.micronaut</groupId>
-          <artifactId>micronaut-http-server-netty</artifactId>
-          <scope>compile</scope>
-          <version>1.1.0.RC2</version>
-        </dependency>  
-              
-        <dependency>
-          <groupId>io.micronaut</groupId>
-          <artifactId>micronaut-inject</artifactId>
-          <scope>compile</scope>
-          <version>1.1.0.RC2</version>
-        </dependency>
-        
-        <dependency>
-          <groupId>io.micronaut</groupId>
-          <artifactId>micronaut-runtime</artifactId>
-          <scope>compile</scope>
-          <version>1.1.0.RC2</version>
-        </dependency>
-        
-        <!-- MICRONAUT DEPENDENCIES -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -241,6 +203,7 @@
 	</build>
 
 	<repositories>
+
 		<repository>
 			<id>spring-releases</id>
 			<url>https://repo.spring.io/libs-release</url>

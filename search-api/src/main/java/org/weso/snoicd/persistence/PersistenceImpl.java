@@ -7,7 +7,7 @@
  * See /LICENSE for license information.
  * 
  */
-package org.weso.snoicd.repositories;
+package org.weso.snoicd.persistence;
 
 import java.util.Arrays;
 import java.util.HashSet;

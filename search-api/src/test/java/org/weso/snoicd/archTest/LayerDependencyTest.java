@@ -36,7 +36,7 @@ public class LayerDependencyTest {
 
     @ArchTest
     public static final ArchRule persistence_should_not_access_services =
-            noClasses().that().resideInAPackage("..repositories..")
+            noClasses().that().resideInAPackage("..persistence..")
                     .should().accessClassesThat().resideInAPackage("..services..");
 
     @ArchTest
@@ -47,7 +47,7 @@ public class LayerDependencyTest {
     @ArchTest
     public static final ArchRule services_should_only_access_persistence_or_other_services =
             classes().that().resideInAPackage("..services..")
-                    .should().onlyAccessClassesThat().resideInAnyPackage("..services..", "..repositories..", "java..");
+                    .should().onlyAccessClassesThat().resideInAnyPackage("..services..", "..persistence..", "java..");
 
     @ArchTest
     public static final ArchRule services_should_not_depend_on_controllers =
@@ -56,7 +56,7 @@ public class LayerDependencyTest {
 
     @ArchTest
     public static final ArchRule persistence_should_not_depend_on_services =
-            noClasses().that().resideInAPackage("..repositories..")
+            noClasses().that().resideInAPackage("..persistence..")
                     .should().dependOnClassesThat().resideInAPackage("..services..");
 
     @ArchTest
@@ -67,5 +67,5 @@ public class LayerDependencyTest {
     @ArchTest
     public static final ArchRule services_should_only_depend_on_persistence_or_other_services =
             classes().that().resideInAPackage("..services..")
-                    .should().onlyDependOnClassesThat().resideInAnyPackage("..services..", "..repositories..", "java..");
+                    .should().onlyDependOnClassesThat().resideInAnyPackage("..services..", "..persistence..", "java..");
 }

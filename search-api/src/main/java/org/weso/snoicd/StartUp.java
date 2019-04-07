@@ -26,8 +26,10 @@ package org.weso.snoicd;
 import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.weso.snoicd.repositories.WarmUpMemory;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
+import org.weso.snoicd.persistence.WarmUpMemory;
 
 //import io.micronaut.runtime.Micronaut;
 
@@ -39,6 +41,7 @@ import org.weso.snoicd.repositories.WarmUpMemory;
  * @version since 1.0
  */
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = RepositoryRestMvcAutoConfiguration.class)
 public class StartUp {
 
 	/**
@@ -50,12 +53,10 @@ public class StartUp {
 		
 		try {
 			WarmUpMemory.init();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		SpringApplication.run(StartUp.class, args);
-		//Micronaut.run(StartUp.class);
 	}
 }

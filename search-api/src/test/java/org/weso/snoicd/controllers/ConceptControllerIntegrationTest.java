@@ -25,8 +25,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.Persistence;
-import org.weso.snoicd.repositories.PersistenceImpl;
+import org.weso.snoicd.persistence.Persistence;
+import org.weso.snoicd.persistence.PersistenceImpl;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 

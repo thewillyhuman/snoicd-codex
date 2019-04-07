@@ -7,7 +7,7 @@
  * See /LICENSE for license information.
  * 
  */
-package org.weso.snoicd.controllers;
+package org.weso.snoicd.search;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,8 +22,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.Persistence;
-import org.weso.snoicd.repositories.PersistenceImpl;
+import org.weso.snoicd.persistence.Persistence;
+import org.weso.snoicd.persistence.PersistenceImpl;
 import org.weso.snoicd.services.ConceptsService;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
@@ -35,7 +35,7 @@ import TestKit.IntegrationTest;
 @ActiveProfiles("test")
 @Category(IntegrationTest.class)
 @DirtiesContext
-public class ConceptServiceIntegrationTest {
+public class SearchIntegrationTest {
 	
 	Persistence repo = PersistenceImpl.instance;
 	
@@ -64,21 +64,21 @@ public class ConceptServiceIntegrationTest {
 	public void tearDown() {
 		repo.deleteAll();
 	}
-	
-	@Test
-	public void getConceptByCodeTest() {
-		Concept c = repo.findByCode( "C-1" ).iterator().next();
-		
-		assertEquals( c, service.getConceptByCode( "C-1" ).iterator().next() );
-		
-	}
-	
-	@Test
-	public void getConceptSearchTest() {
-		Concept c = repo.findByCode( "C-1" ).iterator().next();
-		
-		assertEquals( c, service.getConceptsSearch( "description" ).iterator().next() );
-		
-	}
 
+	@Test
+	public void searchByCodeTest() {
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
+		//repo.saveConcept(c);
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service));
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult());
+		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult().iterator());
+		assertEquals( c, new CodeSearch( "C-1" ).execute(this.service).getResult().iterator().next() );
+	}
+	
+	@Test
+	public void searchByDescriptionTest() {
+		Concept c = repo.findByCode( "C-1" ).iterator().next();
+		
+		assertEquals( c, new DescriptionSearch("description" ).execute(this.service).getResult().iterator().next() );
+	}
 }

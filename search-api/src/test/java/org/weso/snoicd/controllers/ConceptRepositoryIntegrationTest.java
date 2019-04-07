@@ -12,8 +12,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.StartUp;
-import org.weso.snoicd.repositories.Persistence;
-import org.weso.snoicd.repositories.PersistenceImpl;
+import org.weso.snoicd.persistence.Persistence;
+import org.weso.snoicd.persistence.PersistenceImpl;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 
