@@ -59,7 +59,6 @@ public class ConceptsController {
 			@RequestParam(required = false) @Nullable String filter) {
 
 		log.info("SEARCH request received.");
-		System.err.println( q );
 		rtq = new SearchExecutor(q, filter).execute(this.service);
 		
 		return new ResponseEntity<ResponseToQuery>(rtq, rtq.getStatus());
