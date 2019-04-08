@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.BigTableProducer;
 import lombok.extern.java.Log;
+import me.tongfei.progressbar.ProgressBar;
 
 /**
  * Hello world!
@@ -33,14 +34,29 @@ public class StartUp {
 	
 	public static void main( String[] args ) throws JsonParseException, JsonMappingException, IOException {
 		log.info( "Memory warming started." );
+		ProgressBar pb = new ProgressBar("Computing Indexes", 100);
+		
+		pb.setExtraMessage( "Loading concepts in memory." );
 		loadConceptsInMemory();
+		pb.stepTo( 33 );
+		
 		log.info( "Concepts loaded in memory." );
 		log.info( "Indexing concepts." );
+		
+		pb.setExtraMessage( "Indexing concepts." );
 		indexConcepts();
+		pb.stepTo( 66 );
+		
+		
 		log.info( "Concepts indexed." );
 		log.info( "Saving concepts." );
+		
+		pb.setExtraMessage( "Saving indexes." );
 		saveIndexes();
+		pb.stepTo( 100 );
+		pb.setExtraMessage( "Finished." );
 		log.info( "Concepts saved." );
+		pb.close();
 	}
 	
 	public static void loadConceptsInMemory() throws JsonParseException, JsonMappingException, IOException {
