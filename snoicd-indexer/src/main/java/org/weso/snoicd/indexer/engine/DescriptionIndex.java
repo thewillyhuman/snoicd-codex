@@ -30,7 +30,7 @@ public class DescriptionIndex implements IndexEngine {
 	 * @see io.thewilly.bigtable.index.IndexEngine#index(io.thewilly.bigtable.BigTable, java.lang.Object, java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
+	//@Override
 	public <K, V> boolean index( BigTable<K, V> table, K key, V value ) {
 		String normalizedKey = StringNormalizator.normalize(key.toString());
 		String[] keys = normalizedKey.split( " " );

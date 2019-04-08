@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.weso.snoicd.indexer.types;
+package org.weso.snoicd.types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +49,13 @@ import lombok.Data;
 @Data
 @JsonPropertyOrder({ "code", "terminologyName", "descriptions", "relatedCodes" })
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Concept {
+public class Concept implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String code;
 	private String terminologyName;
 	private List<String> descriptions;

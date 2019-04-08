@@ -1,7 +1,7 @@
 package org.weso.snoicd.search.search;
 
 import org.weso.snoicd.search.services.ConceptsService;
-import org.weso.snoicd.search.types.ResponseToQuery;
+import org.weso.snoicd.types.ResponseToQuery;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -11,7 +11,7 @@ package org.weso.snoicd.search.persistence;
 
 import java.util.Set;
 
-import org.weso.snoicd.search.types.Concept;
+import org.weso.snoicd.types.Concept;
 
 /**
  * Instance of Persistence.java

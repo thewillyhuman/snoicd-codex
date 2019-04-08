@@ -25,7 +25,7 @@ public class CodeIndex implements IndexEngine {
 	/* (non-Javadoc)
 	 * @see io.thewilly.bigtable.index.IndexEngine#index(io.thewilly.bigtable.BigTable, java.lang.Object, java.lang.Object)
 	 */
-	@Override
+	//@Override
 	public <K, V> boolean index( BigTable<K, V> table, K key, V value ) {
 		table.getMemoryMap().put( key, new HashSet<V>() );
 		table.getMemoryMap().get( key ).add( value );

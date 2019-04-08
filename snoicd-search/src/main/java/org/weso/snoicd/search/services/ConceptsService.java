@@ -29,7 +29,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
 import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.search.persistence.PersistenceImpl;
-import org.weso.snoicd.search.types.Concept;
+import org.weso.snoicd.types.Concept;
 
 @EntityScan
 @Service

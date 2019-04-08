@@ -11,10 +11,11 @@ package org.weso.snoicd.search.persistence;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import org.weso.snoicd.search.types.Concept;
 import org.weso.snoicd.search.utils.StringNormalizator;
+import org.weso.snoicd.types.Concept;
 
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.BigTableProducer;
@@ -32,6 +33,14 @@ public class PersistenceImpl implements Persistence {
 	
 	private BigTable<String, Concept> _condeptIDIndex;
 	private BigTable<String, Concept> _conceptDescriptionIndex;
+	
+	public Map<String,Set<Concept>> getIDIndexMemoryMap() {
+		return this._condeptIDIndex.getMemoryMap();
+	}
+	
+	public Map<String,Set<Concept>> getDescriptionIndexMemoryMap() {
+		return this._conceptDescriptionIndex.getMemoryMap();
+	}
 	
 	private PersistenceImpl() { 
 		// Initialization of the concept index.

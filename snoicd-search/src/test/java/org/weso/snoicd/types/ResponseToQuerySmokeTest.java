@@ -1,8 +1,8 @@
-package org.weso.snoicd.search.types;
+package org.weso.snoicd.types;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.weso.snoicd.search.types.ResponseToQuery;
+import org.weso.snoicd.types.ResponseToQuery;
 
 import static org.junit.Assert.assertTrue;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;

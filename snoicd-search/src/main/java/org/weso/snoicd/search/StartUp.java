@@ -48,8 +48,9 @@ public class StartUp {
 	 * Main entry point for the snoicd API.
 	 * 
 	 * @param args to run the application.
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 		
 		try {
 			WarmUpMemory.init();

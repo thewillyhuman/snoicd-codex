@@ -21,32 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.weso.snoicd.search.types;
+package org.weso.snoicd.types;
 
-import java.util.Set;
-
-import org.springframework.http.HttpStatus;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
 /**
- * Represents a response to a given query in the context of the system. A query
- * consists on a String that represents the text to search, the response status
- * and the list containing all the results after the query execution.
+ * POJO object to represent a simple concept in the context of the system. It is
+ * composed by an id, its code and terminology name.
  * 
  * @author Guillermo Facundo Colunga
  * @version since 1.0
  */
 @Data
-public class ResponseToQuery {
+public class SimpleConcept implements Serializable {
 
-	// The status received after executing the query.
-	private HttpStatus status;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	// The original query.
-	private String query;
+	// The terminology code.
+	private String code;
 
-	// The lists of results.
-	private Set<Concept> result;
+	// The lists of descriptions.
+	private List<String> descriptions;
+
+	// The terminology name.
+	private String terminologyName;
+
+	/**
+	 * Getter for the descriptions of the simple concept. Will return the list
+	 * of descriptions if exists or an empty one in other case.
+	 * 
+	 * @return the list of descriptions if exists or an empty one in other case.
+	 */
+	public List<String> getDescriptions() {
+		if (this.descriptions == null) {
+			return this.descriptions = new ArrayList<String>();
+		} else {
+			return this.descriptions;
+		}
+	}
 
 }

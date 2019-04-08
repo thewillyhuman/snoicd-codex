@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.weso.snoicd.search.search.SearchExecutor;
 import org.weso.snoicd.search.services.ConceptsService;
-import org.weso.snoicd.search.types.ResponseToQuery;
+import org.weso.snoicd.types.ResponseToQuery;
 
 import lombok.extern.slf4j.Slf4j;
 

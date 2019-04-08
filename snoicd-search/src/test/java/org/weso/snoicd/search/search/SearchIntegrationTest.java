@@ -27,8 +27,8 @@ import org.weso.snoicd.search.persistence.PersistenceImpl;
 import org.weso.snoicd.search.search.CodeSearch;
 import org.weso.snoicd.search.search.DescriptionSearch;
 import org.weso.snoicd.search.services.ConceptsService;
-import org.weso.snoicd.search.types.Concept;
-import org.weso.snoicd.search.types.SimpleConcept;
+import org.weso.snoicd.types.Concept;
+import org.weso.snoicd.types.SimpleConcept;
 
 import TestKit.IntegrationTest;
 

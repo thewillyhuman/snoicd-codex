@@ -21,46 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.weso.snoicd.search.types;
+package org.weso.snoicd.types;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
 /**
- * POJO object to represent a concept in the context of the system. It is
- * composed by an id, its code, terminology name, its descriptions, and related
- * codes.
- * 
- * <p>
- * Will be printed as { code, terminologyName, description and relatedCodes } in
- * JSON.
- * </p>
+ * POJO object to represent a simple concept in the context of the system. It is
+ * composed by an id, its code and terminology name.
  * 
  * @author Guillermo Facundo Colunga
  * @version since 1.0
  */
 @Data
-@JsonPropertyOrder({ "code", "terminologyName", "descriptions", "relatedCodes" })
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Concept {
-
-	private String code;
-	private String terminologyName;
-	private List<String> descriptions;
-	private List<SimpleConcept> relatedCodes;
+public class SimpleConcept implements Serializable {
 
 	/**
-	 * Getter for the descriptions list of a concept. If there is no list will
-	 * create, associate and return an empty one.
 	 * 
-	 * @return The lists of descriptions if exists or an empty one if it does
-	 *         not exists one.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// The terminology code.
+	private String code;
+
+	// The lists of descriptions.
+	private List<String> descriptions;
+
+	// The terminology name.
+	private String terminologyName;
+
+	/**
+	 * Getter for the descriptions of the simple concept. Will return the list
+	 * of descriptions if exists or an empty one in other case.
+	 * 
+	 * @return the list of descriptions if exists or an empty one in other case.
 	 */
 	public List<String> getDescriptions() {
 		if (this.descriptions == null) {
@@ -70,18 +67,4 @@ public class Concept {
 		}
 	}
 
-	/**
-	 * Getter for the descriptions list of related codes. If there is no list will
-	 * create, associate and return an empty one.
-	 * 
-	 * @return The lists of related codes if exists or an empty one if it does
-	 *         not exists one.
-	 */
-	public List<SimpleConcept> getRelatedCodes() {
-		if (this.relatedCodes == null) {
-			return this.relatedCodes = new ArrayList<SimpleConcept>();
-		} else {
-			return this.relatedCodes;
-		}
-	}
 }

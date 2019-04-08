@@ -14,8 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.search.StartUp;
 import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.search.persistence.PersistenceImpl;
-import org.weso.snoicd.search.types.Concept;
-import org.weso.snoicd.search.types.SimpleConcept;
+import org.weso.snoicd.types.Concept;
+import org.weso.snoicd.types.SimpleConcept;
 
 import TestKit.IntegrationTest;
 
