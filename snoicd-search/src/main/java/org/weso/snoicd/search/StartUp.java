@@ -21,50 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.weso.snoicd.types;
+package org.weso.snoicd.search;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-import lombok.Data;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
+import org.weso.snoicd.search.persistence.WarmUpMemory;
+
+//import io.micronaut.runtime.Micronaut;
 
 /**
- * POJO object to represent a simple concept in the context of the system. It is
- * composed by an id, its code and terminology name.
+ * Start up entry point for the snoicd API. By executing this class you will
+ * start the API on with the parameters given at applications.propperties file.
  * 
- * @author Guillermo Facundo Colunga
+ * @author Guillermo Facundo Colunga.
  * @version since 1.0
  */
-@Data
-public class SimpleConcept implements Serializable {
+@SpringBootApplication
+@EnableAutoConfiguration(exclude = RepositoryRestMvcAutoConfiguration.class)
+public class StartUp {
 
 	/**
+	 * Main entry point for the snoicd API.
 	 * 
+	 * @param args to run the application.
+	 * @throws ClassNotFoundException 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	// The terminology code.
-	private String code;
-
-	// The lists of descriptions.
-	private List<String> descriptions;
-
-	// The terminology name.
-	private String terminologyName;
-
-	/**
-	 * Getter for the descriptions of the simple concept. Will return the list
-	 * of descriptions if exists or an empty one in other case.
-	 * 
-	 * @return the list of descriptions if exists or an empty one in other case.
-	 */
-	public List<String> getDescriptions() {
-		if (this.descriptions == null) {
-			return this.descriptions = new ArrayList<String>();
-		} else {
-			return this.descriptions;
+	public static void main(String[] args) throws ClassNotFoundException {
+		
+		try {
+			WarmUpMemory.init();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		SpringApplication.run(StartUp.class, args);
 	}
-
 }

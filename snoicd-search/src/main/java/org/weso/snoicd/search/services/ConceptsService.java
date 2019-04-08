@@ -21,50 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.weso.snoicd.types;
+package org.weso.snoicd.search.services;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import lombok.Data;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.stereotype.Service;
+import org.weso.snoicd.search.persistence.Persistence;
+import org.weso.snoicd.search.persistence.PersistenceImpl;
+import org.weso.snoicd.types.Concept;
 
-/**
- * POJO object to represent a simple concept in the context of the system. It is
- * composed by an id, its code and terminology name.
- * 
- * @author Guillermo Facundo Colunga
- * @version since 1.0
- */
-@Data
-public class SimpleConcept implements Serializable {
+@EntityScan
+@Service
+public class ConceptsService {
+	
+	Persistence repository = PersistenceImpl.instance;
 
 	/**
-	 * 
+	 * Gets the concept code.
+	 * @param code to be look for.
+	 * @return the list of concepts that match the given code.
 	 */
-	private static final long serialVersionUID = 1L;
-
-	// The terminology code.
-	private String code;
-
-	// The lists of descriptions.
-	private List<String> descriptions;
-
-	// The terminology name.
-	private String terminologyName;
-
-	/**
-	 * Getter for the descriptions of the simple concept. Will return the list
-	 * of descriptions if exists or an empty one in other case.
-	 * 
-	 * @return the list of descriptions if exists or an empty one in other case.
-	 */
-	public List<String> getDescriptions() {
-		if (this.descriptions == null) {
-			return this.descriptions = new ArrayList<String>();
-		} else {
-			return this.descriptions;
-		}
+	public Set<Concept> getConceptByCode(String code) {
+		return this.repository.findByCode(code);
 	}
-
+	
+	/**
+	 * Gets the concept code.
+	 * @param code to be look for.
+	 * @return the list of concepts that match the given code.
+	 */
+	public Set<Concept> getConceptByDescription(String description) {
+		String[] words = description.split( " " );
+		return this.repository.findByDescription( words );
+	}
+	
+	/**
+	 * Gets the concepts to search for.
+	 * 
+	 * @param query to be executed.
+	 * @return the list of concepts.
+	 */
+	public Set<Concept> getConceptsSearch(String query) {
+		return this.repository.search(query);
+	}
+	
 }

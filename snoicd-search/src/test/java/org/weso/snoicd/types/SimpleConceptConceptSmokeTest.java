@@ -2,6 +2,7 @@ package org.weso.snoicd.types;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.weso.snoicd.types.SimpleConcept;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 

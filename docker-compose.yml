@@ -3,5 +3,6 @@ version: '3'
 services:
   api:
     build: ./snoicd-search
+    image: thewilly/snoicd-search:latest
     ports:
       - "8082:8082"
