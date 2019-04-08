@@ -71,7 +71,7 @@ public class StartUp {
 	
 	public static void saveIndexes() throws IOException {
 		log.info( "Saving id index." );
-		FileOutputStream fos = new FileOutputStream( "../data/conceptID.index" );
+		FileOutputStream fos = new FileOutputStream( "../snoicd-search/conceptID.index" );
 		ObjectOutputStream oos = new ObjectOutputStream( fos );
 		oos.reset();
 		oos.writeObject( _condeptIDIndex.getMemoryMap() );
@@ -79,7 +79,7 @@ public class StartUp {
 		fos.close();
 		
 		log.info( "Saving descriptions index." );
-		fos = new FileOutputStream( "../data/descriptions.index" );
+		fos = new FileOutputStream( "../snoicd-search/descriptions.index" );
 		oos = new ObjectOutputStream( fos );
 		oos.reset();
 		oos.writeObject( _conceptDescriptionIndex.getMemoryMap() );
