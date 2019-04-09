@@ -46,13 +46,13 @@ public class Icd10Crawler extends AbstractCrawler {
 			node = new IcdNode();
 
 			// Set its ID
-			node.setConceptID( doc.get( "ICD9_CODE" ).toString() );
+			node.setConceptID( doc.get( "Full Code" ).toString() );
 
 			// Add the description found.
-			node.getDescriptions().add( doc.get( "DESCRIPTION" ).toString() );
+			node.getDescriptions().add( doc.get( "Full Description" ).toString() );
 
 			// Set the version.
-			( (IcdNode) node ).setVersion( ICDVersion.V_9 );
+			( (IcdNode) node ).setVersion( ICDVersion.V_10 );
 
 			StartUp._nodes.add( node );
 		}
