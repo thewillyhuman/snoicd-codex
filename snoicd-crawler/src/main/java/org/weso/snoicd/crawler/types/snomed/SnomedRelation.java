@@ -22,6 +22,11 @@ public class SnomedRelation implements Relation {
 
 	private String relationType;
 	private SnomedSimpleNode endOfTheRelation;
+	
+	public SnomedRelation(String relationType, SnomedSimpleNode endOfTheRelation) {
+		this.relationType = relationType;
+		this.endOfTheRelation = endOfTheRelation;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -59,5 +64,4 @@ public class SnomedRelation implements Relation {
 	public void setNodeToRelation( SnomedSimpleNode nodeToRelation ) {
 		this.endOfTheRelation = nodeToRelation;
 	}
-
 }

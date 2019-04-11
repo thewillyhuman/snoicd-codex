@@ -26,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.weso.snoicd.search.StartUp;
 import org.weso.snoicd.search.persistence.Persistence;
-import org.weso.snoicd.search.persistence.PersistenceImpl;
+import org.weso.snoicd.search.persistence.BigTablePersistenceImpl;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 
@@ -45,7 +45,7 @@ public class ConceptControllerIntegrationTest {
 	private MockHttpSession session;
 
 	
-	Persistence repo = PersistenceImpl.instance;
+	Persistence repo = BigTablePersistenceImpl.instance;
 
 	@MockBean
 	private RestTemplate template;

@@ -9,11 +9,12 @@
  */
 package org.weso.snoicd.crawler.engines.impl;
 
-import java.util.LinkedList;
-import java.util.List;
 
 import org.bson.Document;
+import org.weso.snoicd.crawler.StartUp;
 import org.weso.snoicd.crawler.types.AbstractTerminologyNode;
+import org.weso.snoicd.crawler.types.snomed.SnomedNode;
+import org.weso.snoicd.crawler.types.snomed.SnomedRelation;
 
 import com.mongodb.client.MongoCollection;
 
@@ -25,14 +26,11 @@ import com.mongodb.client.MongoCollection;
  */
 public class SnomedCrawler extends AbstractCrawler {
 
-	List<AbstractTerminologyNode> crawledNodes;
-
 	/*
 	 * Allocates a [] object and initializes it so that it represents
 	 */
 	public SnomedCrawler( String uri, int port, String dbName ) {
 		super( uri, port, dbName );
-		this.crawledNodes = new LinkedList<AbstractTerminologyNode>();
 	}
 
 	/*
@@ -42,11 +40,24 @@ public class SnomedCrawler extends AbstractCrawler {
 	@Override
 	void specificCrawl() {
 		// Getting the snomed collection.
-		MongoCollection<Document> coll = super.hDB.getCollection( "snomed" );
+		MongoCollection<Document> coll = super.hDB.getCollection( "icd9" );
 
+		AbstractTerminologyNode node;
+		
 		for (Document doc : coll.find()) {
-			System.out.println( doc );
+			
+			// Create the node.
+			node = new SnomedNode();
+			
+			// Set its ID
+			node.setConceptID( doc.get( "ICD9_CODE" ).toString() );
+			
+			// Add the description found.
+			node.getDescriptions().add(doc.get( "DESCRIPTION" ).toString());
+			
+			((SnomedNode) node).getRelations().add( new SnomedRelation("new snomed relation", null));
+			
+			StartUp._nodes.add( node );
 		}
 	}
-
 }

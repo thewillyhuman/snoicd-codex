@@ -27,9 +27,9 @@ import io.thewilly.bigtable.index.IndexEngine;
  * @author 
  * @version 
  */
-public class PersistenceImpl implements Persistence {
+public class BigTablePersistenceImpl implements Persistence {
 	
-	public static PersistenceImpl instance = new PersistenceImpl();
+	public static BigTablePersistenceImpl instance = new BigTablePersistenceImpl();
 	
 	private BigTable<String, Concept> _condeptIDIndex;
 	private BigTable<String, Concept> _conceptDescriptionIndex;
@@ -42,46 +42,15 @@ public class PersistenceImpl implements Persistence {
 		return this._conceptDescriptionIndex.getMemoryMap();
 	}
 	
-	private PersistenceImpl() { 
+	private BigTablePersistenceImpl() { 
+		
 		// Initialization of the concept index.
-		this._condeptIDIndex = new BigTableProducer<String, Concept>()
-				.withIndexEngine( new IndexEngine() {
-					
-					@Override
-					public <K, V> boolean index( BigTable<K, V> table, K key, V value ) {
-						table.getMemoryMap().put( key, new HashSet<V>() );
-						table.getMemoryMap().get( key ).add( value );
-						return true;
-					}
-				}).build();
+		this._condeptIDIndex = new BigTableProducer<String, Concept>().withIndexEngine( IndexEngine.DEFAULT_ENGINE ).build();
 		
 		// Initialization of the description index.
-		this._conceptDescriptionIndex = new BigTableProducer<String, Concept>()
-				.withIndexEngine( new IndexEngine() {
-					
-					@SuppressWarnings("unchecked")
-					@Override
-					public <K, V> boolean index( BigTable<K, V> table, K key, V value ) {
-						String normalizedKey = StringNormalizator.normalize(key.toString());
-						String[] keys = normalizedKey.split( " " );
-						
-						for(String ikey : keys) {
-							if (ikey.length() >= 3) {
-								ikey = ikey.toLowerCase();
-								if (table.getMemoryMap().containsKey(ikey)) {
-									table.getMemoryMap().get(ikey).add(value);
-								} else {
-									table.getMemoryMap().put((K) ikey, new HashSet<V>());
-									table.getMemoryMap().get(ikey).add(value);
-								}
-							}
-						}
-						
-						return true;
-					}
-				} ).build();
+		this._conceptDescriptionIndex = new BigTableProducer<String, Concept>().withIndexEngine( IndexEngine.DEFAULT_ENGINE ).build();
 		
-	} // Singleton.
+	}
 
 	@Override
 	public Set<Concept> findByCode( String code ) {

@@ -28,14 +28,14 @@ import java.util.Set;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Service;
 import org.weso.snoicd.search.persistence.Persistence;
-import org.weso.snoicd.search.persistence.PersistenceImpl;
+import org.weso.snoicd.search.persistence.BigTablePersistenceImpl;
 import org.weso.snoicd.types.Concept;
 
 @EntityScan
 @Service
 public class ConceptsService {
 	
-	Persistence repository = PersistenceImpl.instance;
+	Persistence repository = BigTablePersistenceImpl.instance;
 
 	/**
 	 * Gets the concept code.

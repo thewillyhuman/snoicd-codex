@@ -46,7 +46,7 @@ public class WarmUpMemory {
         pb.stepTo( 100 );
         pb.close();
         
-        PersistenceImpl.instance.getDescriptionIndexMemoryMap().putAll( map );
+        BigTablePersistenceImpl.instance.getDescriptionIndexMemoryMap().putAll( map );
         ois.close();
         fis.close();
 		
@@ -60,7 +60,7 @@ public class WarmUpMemory {
         pb.stepTo( 100 );
         pb.close();
         
-        PersistenceImpl.instance.getIDIndexMemoryMap().putAll( map );
+        BigTablePersistenceImpl.instance.getIDIndexMemoryMap().putAll( map );
         ois.close();
         fis.close();
         
