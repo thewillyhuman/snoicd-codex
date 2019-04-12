@@ -9,7 +9,6 @@
  */
 package org.weso.snoicd.crawler.types.snomed;
 
-import org.weso.snoicd.crawler.types.AbstractTerminologyNode;
 import org.weso.snoicd.crawler.types.Relation;
 
 /**
@@ -21,11 +20,11 @@ import org.weso.snoicd.crawler.types.Relation;
 public class SnomedRelation implements Relation {
 
 	private String relationType;
-	private SnomedSimpleNode endOfTheRelation;
+	private String destinationNodeId;
 	
-	public SnomedRelation(String relationType, SnomedSimpleNode endOfTheRelation) {
+	public SnomedRelation(String relationType, String endOfTheRelationNodeId) {
 		this.relationType = relationType;
-		this.endOfTheRelation = endOfTheRelation;
+		this.destinationNodeId = endOfTheRelationNodeId;
 	}
 
 	/*
@@ -51,17 +50,17 @@ public class SnomedRelation implements Relation {
 	 * @see org.weso.snoicd.crawler.types.Relation#getNodeToRelation()
 	 */
 	@Override
-	public AbstractTerminologyNode getNodeToRelation() {
-		return this.endOfTheRelation;
+	public String getNodeToRelation() {
+		return this.destinationNodeId;
 	}
 
 	/**
 	 * Set the node that will be the end of the relation.
 	 * 
-	 * @param nodeToRelation represents the node that will be the end of the
+	 * @param destinationNodeId represents the node that will be the end of the
 	 *            relation.
 	 */
-	public void setNodeToRelation( SnomedSimpleNode nodeToRelation ) {
-		this.endOfTheRelation = nodeToRelation;
+	public void setDestinationNodeId( String destinationNodeId ) {
+		this.destinationNodeId = destinationNodeId;
 	}
 }

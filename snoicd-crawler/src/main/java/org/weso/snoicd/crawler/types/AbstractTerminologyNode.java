@@ -23,6 +23,7 @@ public class AbstractTerminologyNode implements CrawlDataType {
 	private String conceptId;
 	private String terminologyName;
 	private Set<String> descriptions;
+	private Set<String> translationNodesIds;
 
 	/* (non-Javadoc)
 	 * @see org.weso.snoicd.crawler.types.CrawlDataType#getConceptID()
@@ -54,5 +55,16 @@ public class AbstractTerminologyNode implements CrawlDataType {
 		} else {
 			return this.descriptions;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.weso.snoicd.crawler.types.CrawlDataType#getTranslationNodesIds()
+	 */
+	@Override
+	public Set<String> getTranslationNodesIds() {
+		if (translationNodesIds==null) {
+			return this.translationNodesIds = new HashSet<String>();
+		}
+		return this.translationNodesIds;
 	}
 }

@@ -27,5 +27,5 @@ public interface Relation {
 	 * 
 	 * @return
 	 */
-	public AbstractTerminologyNode getNodeToRelation();
+	public String getNodeToRelation();
 }

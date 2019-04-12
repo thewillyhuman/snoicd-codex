@@ -44,6 +44,7 @@ public class Icd10Crawler extends AbstractCrawler {
 
 			// Create the node.
 			node = new IcdNode();
+			node.setTerminologyName("ICD");
 
 			// Set its ID
 			node.setConceptID( doc.get( "Full Code" ).toString() );
@@ -54,7 +55,7 @@ public class Icd10Crawler extends AbstractCrawler {
 			// Set the version.
 			( (IcdNode) node ).setVersion( ICDVersion.V_10 );
 
-			StartUp._nodes.add( node );
+			StartUp._nodes.put( node.getConceptID(), node );
 		}
 	}
 
