@@ -34,7 +34,7 @@ public class StartUp {
 
 
 	public static void main( String[] args ) throws InterruptedException, IOException {
-		String mongoIp = "52.208.53.152";
+		String mongoIp = "34.243.166.227";
 
 		AbstractCrawler snomed = new SnomedCrawler(mongoIp, 27017, "health-knowledge");
 		AbstractCrawler icd9 = new Icd9Crawler(mongoIp, 27017, "health-knowledge");

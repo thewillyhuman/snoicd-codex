@@ -23,11 +23,11 @@
  ******************************************************************************/
 package org.weso.snoicd.types;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * POJO object to represent a simple concept in the context of the system. It is

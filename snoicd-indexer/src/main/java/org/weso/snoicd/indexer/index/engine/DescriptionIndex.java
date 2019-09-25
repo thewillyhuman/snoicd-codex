@@ -7,14 +7,13 @@
  * See /LICENSE for license information.
  * 
  */
-package org.weso.snoicd.indexer.engine;
-
-import java.util.HashSet;
-
-import org.weso.snoicd.indexer.utils.StringNormalizator;
+package org.weso.snoicd.indexer.index.engine;
 
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.index.IndexEngine;
+import org.weso.snoicd.indexer.utils.StringNormalizator;
+
+import java.util.HashSet;
 
 /**
  * Instance of DescriptionIndex.java

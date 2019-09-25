@@ -9,11 +9,14 @@
  */
 package org.weso.snoicd.search.persistence;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.weso.snoicd.types.Concept;
 
@@ -34,7 +37,7 @@ public class WarmUpMemory {
 	
 	@SuppressWarnings("unchecked")
 	public static void init() throws JsonParseException, JsonMappingException, IOException, ClassNotFoundException {
-		log.info( "Memory warming started." );
+	    log.info( "Memory warming started." );
 		
 		log.info( "Loading description index" );
 		ProgressBar pb = new ProgressBar("Loading description index", 100);
@@ -42,7 +45,7 @@ public class WarmUpMemory {
 		pb.stepTo( 25 );
         ObjectInputStream ois = new ObjectInputStream(fis);
         pb.stepTo( 50 );
-        SortedMap<String, Set<Concept>> map = (SortedMap<String, Set<Concept>>) ois.readObject();
+        ConcurrentMap<String, Set<Concept>> map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
         pb.stepTo( 100 );
         pb.close();
         
@@ -56,7 +59,7 @@ public class WarmUpMemory {
         pb.stepTo( 25 );
         ois = new ObjectInputStream(fis);
         pb.stepTo( 50 );
-        map = (SortedMap<String, Set<Concept>>) ois.readObject();
+        map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
         pb.stepTo( 100 );
         pb.close();
         
