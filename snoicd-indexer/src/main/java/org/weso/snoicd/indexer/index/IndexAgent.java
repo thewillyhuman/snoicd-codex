@@ -5,11 +5,19 @@ import org.weso.snoicd.types.Concept;
 
 import java.util.List;
 
+/**
+ * Agent for the indexing operations. Will index a single chunk of the concepts list.
+ */
 public class IndexAgent extends Thread {
 
     private List<Concept> concepts;
     private int startPosition, endPosition;
 
+    /**
+     * @param concepts is the full set of concepts to index.
+     * @param startPosition is where the agent starts to index.
+     * @param endPosition is the position where the agent stops indexing.
+     */
     public IndexAgent(List<Concept> concepts, int startPosition, int endPosition) {
         this.concepts = concepts;
         this.startPosition = startPosition;
@@ -18,14 +26,14 @@ public class IndexAgent extends Thread {
 
     @Override
     public void run() {
-        for(int i = startPosition; i < endPosition; i++) {
+        for (int i = startPosition; i < endPosition; i++) {
             Concept c = concepts.get(i);
-            if( c.getCode() != null && c.getDescriptions() != null) {
+            if (c.getCode() != null && c.getDescriptions() != null) {
 
-                StartUp.CONCEPT_ID_INDEX.insert( c.getCode(), c );
+                StartUp.CONCEPT_ID_INDEX.insert(c.getCode(), c);
 
-                for(String description : c.getDescriptions()) {
-                    StartUp.CONCEPT_DESCRIPTIONS_INDEX.insert( description, c );
+                for (String description : c.getDescriptions()) {
+                    StartUp.CONCEPT_DESCRIPTIONS_INDEX.insert(description, c);
                 }
             }
         }

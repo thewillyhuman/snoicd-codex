@@ -9,10 +9,7 @@
  */
 package org.weso.snoicd.search.persistence;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,7 +42,15 @@ public class WarmUpMemory {
 		pb.stepTo( 25 );
         ObjectInputStream ois = new ObjectInputStream(fis);
         pb.stepTo( 50 );
-        ConcurrentMap<String, Set<Concept>> map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
+        ConcurrentHashMap<String, Set<Concept>> map = new ConcurrentHashMap<>();
+
+        try {
+            map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
+        } catch (OptionalDataException ex) {
+            log.error("Error while loading the description index.");
+            ex.printStackTrace();
+        }
+
         pb.stepTo( 100 );
         pb.close();
         
@@ -59,7 +64,14 @@ public class WarmUpMemory {
         pb.stepTo( 25 );
         ois = new ObjectInputStream(fis);
         pb.stepTo( 50 );
-        map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
+
+        try {
+            map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
+        } catch (OptionalDataException ex) {
+            log.error("Error while loading the code index.");
+            ex.printStackTrace();
+        }
+
         pb.stepTo( 100 );
         pb.close();
         
