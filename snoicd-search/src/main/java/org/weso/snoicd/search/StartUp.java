@@ -29,6 +29,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
+import org.weso.snoicd.search.persistence.BigTableWarmUpMemoryImpl;
 import org.weso.snoicd.search.persistence.WarmUpMemory;
 
 //import io.micronaut.runtime.Micronaut;
@@ -44,6 +45,8 @@ import org.weso.snoicd.search.persistence.WarmUpMemory;
 @EnableAutoConfiguration(exclude = RepositoryRestMvcAutoConfiguration.class)
 public class StartUp {
 
+	private static WarmUpMemory warmUpMemoryObject;
+
 	/**
 	 * Main entry point for the snoicd API.
 	 * 
@@ -51,13 +54,11 @@ public class StartUp {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException {
-		
-		try {
-			WarmUpMemory.init();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		warmUpMemoryObject = new BigTableWarmUpMemoryImpl(
+				"descriptionsIndex.json",
+				"conceptIDIndex.json");
+
+		warmUpMemoryObject.init();
 		SpringApplication.run(StartUp.class, args);
 	}
 }

@@ -1,7 +1,10 @@
 package org.weso.snoicd.search.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.text.Normalizer;
 
+@Slf4j
 public class StringNormalizator {
 
 	public static String normalize(String s) {
@@ -14,6 +17,8 @@ public class StringNormalizator {
 		
 		// Always to lower case as a convention.
 		ret = ret.toLowerCase();
+
+		log.info("Normalizing from: " + s + ". To: " + ret);
 		
 		return ret;
 	}

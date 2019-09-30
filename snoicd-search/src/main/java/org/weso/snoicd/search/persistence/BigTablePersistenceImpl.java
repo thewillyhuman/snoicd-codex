@@ -49,7 +49,6 @@ public class BigTablePersistenceImpl implements Persistence {
 		
 		// Initialization of the description index.
 		this._conceptDescriptionIndex = new BigTableProducer<String, Concept>().withIndexEngine( IndexEngine.DEFAULT_ENGINE ).build();
-		
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public class BigTablePersistenceImpl implements Persistence {
 
 	@Override
 	public Set<Concept> findByDescription( String... words ) {
-		Arrays.stream( words ).forEach((w) -> w = StringNormalizator.normalize(w) );
+		for(int i = 0; i < words.length; i++) words[i] = StringNormalizator.normalize(words[i]);
 		Set<Concept> set = this._conceptDescriptionIndex.findIntersection( words );
 		if(set == null)
 			set = new HashSet<Concept>();
