@@ -5,31 +5,29 @@
  * Licensed under GNU General Public License v3.0.
  *
  * See /LICENSE for license information.
- * 
+ *
  */
 package org.weso.snoicd.search.archTest;
-
-import org.junit.runner.RunWith;
 
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.junit.ArchUnitRunner;
 import com.tngtech.archunit.lang.ArchRule;
+import org.junit.runner.RunWith;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 /**
  * Instance of InterfaceRulesTest.java
- * 
- * @author 
- * @version 
+ *
+ * @author
  */
 @RunWith(ArchUnitRunner.class)
 @AnalyzeClasses(packages = "org.weso.snoicd")
 public class LayerDependencyTest {
 
-	@ArchTest
+    @ArchTest
     public static final ArchRule services_should_not_access_controllers =
             noClasses().that().resideInAPackage("..services..")
                     .should().accessClassesThat().resideInAPackage("..controllers..");

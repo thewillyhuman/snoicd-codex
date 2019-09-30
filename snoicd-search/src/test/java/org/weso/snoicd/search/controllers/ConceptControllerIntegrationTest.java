@@ -1,11 +1,6 @@
 package org.weso.snoicd.search.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-
-import static org.junit.Assert.assertEquals;
-
+import TestKit.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,90 +20,92 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.weso.snoicd.search.StartUp;
-import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.search.persistence.BigTablePersistenceImpl;
+import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 
-import TestKit.IntegrationTest;
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = { StartUp.class })
+@SpringBootTest(classes = {StartUp.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @Category(IntegrationTest.class)
 @DirtiesContext
 public class ConceptControllerIntegrationTest {
 
-	@Autowired
-	private WebApplicationContext context;
-	private MockMvc mockMvc;
-	private MockHttpSession session;
+    @Autowired
+    private WebApplicationContext context;
+    private MockMvc mockMvc;
+    private MockHttpSession session;
 
-	
-	Persistence repo = BigTablePersistenceImpl.instance;
 
-	@MockBean
-	private RestTemplate template;
+    Persistence repo = BigTablePersistenceImpl.instance;
 
-	@Before
-	public void setUp() {
+    @MockBean
+    private RestTemplate template;
 
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-		session = new MockHttpSession();
+    @Before
+    public void setUp() {
 
-		SimpleConcept sc = new SimpleConcept();
-		sc.setCode("SC-1");
-		sc.getDescriptions().add("Simple description 1");
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+        session = new MockHttpSession();
 
-		Concept c = new Concept();
-		c.setCode("C-1");
-		c.getDescriptions().add("Description 1");
+        SimpleConcept sc = new SimpleConcept();
+        sc.setCode("SC-1");
+        sc.getDescriptions().add("Simple description 1");
 
-		c.getRelatedCodes().add(sc);
+        Concept c = new Concept();
+        c.setCode("C-1");
+        c.getDescriptions().add("Description 1");
 
-		repo.saveConcept(c);
+        c.getRelatedCodes().add(sc);
 
-		assertEquals(c, repo.findByCode("C-1").iterator().next());
-	}
+        repo.saveConcept(c);
 
-	@After
-	public void tearDown() {
-		repo.deleteAll();
-	}
+        assertEquals(c, repo.findByCode("C-1").iterator().next());
+    }
 
-	@Test
-	public void findConceptsByCodeTest() throws Exception {
-		MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=code").session(session)
-				.contentType(MediaType.APPLICATION_JSON);
-		mockMvc.perform(request).andExpect(status().isOk());
-	}
-	
-	@Test
-	public void findConceptsByCodeWithNullFilterTest() throws Exception {
-		MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=").session(session)
-				.contentType(MediaType.APPLICATION_JSON);
-		mockMvc.perform(request).andExpect(status().isOk());
-	}
+    @After
+    public void tearDown() {
+        repo.deleteAll();
+    }
 
-	@Test
-	public void findConceptsByDescriptionTest() throws Exception {
-		MockHttpServletRequestBuilder request = get("/api/search?q=des&filter=description").session(session)
-				.contentType(MediaType.APPLICATION_JSON);
-		mockMvc.perform(request).andExpect(status().isOk());
-	}
-	
-	@Test
-	public void findConceptsByAllFieldsTest() throws Exception {
-		MockHttpServletRequestBuilder request = get("/api/search?q=C-1").session(session)
-				.contentType(MediaType.APPLICATION_JSON);
-		mockMvc.perform(request).andExpect(status().isOk());
-	}
-	
-	@Test
-	public void nullQueryTest() throws Exception {
-		MockHttpServletRequestBuilder request = get("/api/search?q=aaa&filter=lala").session(session)
-				.contentType(MediaType.APPLICATION_JSON);
-		 mockMvc.perform(request).andExpect(status().isBadRequest());
-	}
+    @Test
+    public void findConceptsByCodeTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=code").session(session)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
+    public void findConceptsByCodeWithNullFilterTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/api/search?q=C-1&filter=").session(session)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
+    public void findConceptsByDescriptionTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/api/search?q=des&filter=description").session(session)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
+    public void findConceptsByAllFieldsTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/api/search?q=C-1").session(session)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
+    public void nullQueryTest() throws Exception {
+        MockHttpServletRequestBuilder request = get("/api/search?q=aaa&filter=lala").session(session)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request).andExpect(status().isBadRequest());
+    }
 
 }

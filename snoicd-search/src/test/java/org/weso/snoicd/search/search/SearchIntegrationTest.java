@@ -5,12 +5,11 @@
  * Licensed under GNU General Public License v3.0.
  *
  * See /LICENSE for license information.
- * 
+ *
  */
 package org.weso.snoicd.search.search;
 
-import static org.junit.Assert.assertEquals;
-
+import TestKit.IntegrationTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -23,65 +22,64 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.weso.snoicd.search.StartUp;
-import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.search.persistence.BigTablePersistenceImpl;
-import org.weso.snoicd.search.search.CodeSearch;
-import org.weso.snoicd.search.search.DescriptionSearch;
+import org.weso.snoicd.search.persistence.Persistence;
 import org.weso.snoicd.search.services.ConceptsService;
 import org.weso.snoicd.types.Concept;
 import org.weso.snoicd.types.SimpleConcept;
 
-import TestKit.IntegrationTest;
+import static org.junit.Assert.assertEquals;
 
-@SpringBootTest(classes = { StartUp.class })
+@SpringBootTest(classes = {StartUp.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @Category(IntegrationTest.class)
 @DirtiesContext
 public class SearchIntegrationTest {
-	
-	Persistence repo = BigTablePersistenceImpl.instance;
-	
-	@Autowired
-	private ConceptsService service;
-	
-	@Before
-	public void setUp() {
 
-		SimpleConcept sc = new SimpleConcept();
-		sc.setCode("SC-1");
-		sc.getDescriptions().add("Simple description 1");
+    Persistence repo = BigTablePersistenceImpl.instance;
 
-		Concept c = new Concept();
-		c.setCode("C-1");
-		c.getDescriptions().add("Description 1");
+    @Autowired
+    private ConceptsService service;
 
-		c.getRelatedCodes().add(sc);
+    @Before
+    public void setUp() {
 
-		repo.saveConcept(c);
+        SimpleConcept sc = new SimpleConcept();
+        sc.setCode("SC-1");
+        sc.getDescriptions().add("Simple description 1");
 
-		assertEquals(c, repo.findByCode("C-1").iterator().next());
-	}
+        Concept c = new Concept();
+        c.setCode("C-1");
+        c.getDescriptions().add("Description 1");
 
-	@After
-	public void tearDown() {
-		repo.deleteAll();
-	}
+        c.getRelatedCodes().add(sc);
 
-	@Test
-	public void searchByCodeTest() {
-		Concept c = repo.findByCode( "C-1" ).iterator().next();
-		//repo.saveConcept(c);
-		System.err.println(new CodeSearch( "C-1" ).execute(this.service));
-		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult());
-		System.err.println(new CodeSearch( "C-1" ).execute(this.service).getResult().iterator());
-		assertEquals( c, new CodeSearch( "C-1" ).execute(this.service).getResult().iterator().next() );
-	}
-	
-	@Test @Ignore
-	public void searchByDescriptionTest() {
-		Concept c = repo.findByCode( "C-1" ).iterator().next();
-		
-		assertEquals( c, new DescriptionSearch("description" ).execute(this.service).getResult().iterator().next() );
-	}
+        repo.saveConcept(c);
+
+        assertEquals(c, repo.findByCode("C-1").iterator().next());
+    }
+
+    @After
+    public void tearDown() {
+        repo.deleteAll();
+    }
+
+    @Test
+    public void searchByCodeTest() {
+        Concept c = repo.findByCode("C-1").iterator().next();
+        //repo.saveConcept(c);
+        System.err.println(new CodeSearch("C-1").execute(this.service));
+        System.err.println(new CodeSearch("C-1").execute(this.service).getResult());
+        System.err.println(new CodeSearch("C-1").execute(this.service).getResult().iterator());
+        assertEquals(c, new CodeSearch("C-1").execute(this.service).getResult().iterator().next());
+    }
+
+    @Test
+    @Ignore
+    public void searchByDescriptionTest() {
+        Concept c = repo.findByCode("C-1").iterator().next();
+
+        assertEquals(c, new DescriptionSearch("description").execute(this.service).getResult().iterator().next());
+    }
 }

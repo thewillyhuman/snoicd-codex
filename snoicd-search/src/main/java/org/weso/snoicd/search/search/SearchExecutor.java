@@ -1,46 +1,45 @@
 package org.weso.snoicd.search.search;
 
-import org.weso.snoicd.search.services.ConceptsService;
-import org.weso.snoicd.types.ResponseToQuery;
-
 import lombok.extern.slf4j.Slf4j;
+import org.weso.snoicd.search.services.ConceptsServiceOperations;
+import org.weso.snoicd.types.ResponseToQuery;
 
 @Slf4j
 public class SearchExecutor implements Search {
 
-	private Search searchStrategy;
+    private Search searchStrategy;
 
-	public SearchExecutor(String query, String filter) {
-		
-		if (filter != null && filter != "" && filter != " ") {
-			log.info("Filter found.");
+    public SearchExecutor(String query, String filter) {
 
-			// If we filter by code.
-			if (filter.equals("code")) {
-				log.info("Filter was: code.");
-				searchStrategy = new CodeSearch(query);
+        if (filter != null && filter != "" && filter != " ") {
+            log.info("Filter found.");
 
-				// If we filter only by description.
-			} else if (filter.equals("description")) {
-				log.info("Filter was: description.");
-				searchStrategy = new DescriptionSearch(query);
+            // If we filter by code.
+            if (filter.equals("code")) {
+                log.info("Filter was: code.");
+                searchStrategy = new CodeSearch(query);
 
-				// In any other case the query is not accepted.
-			} else {
-				log.warn("Invalid search found.");
-				searchStrategy = new InvalidSearch();
-			}
-			
-			// If there is no filter present then...
-		} else {
-			log.info("No filter found.");
-			searchStrategy = new AllFieldsSearch(query);
-		}
-	}
+                // If we filter only by description.
+            } else if (filter.equals("description")) {
+                log.info("Filter was: description.");
+                searchStrategy = new DescriptionSearch(query);
 
-	@Override
-	public ResponseToQuery execute(ConceptsService service) {
-		return this.searchStrategy.execute(service);
-	}
+                // In any other case the query is not accepted.
+            } else {
+                log.warn("Invalid search found.");
+                searchStrategy = new InvalidSearch();
+            }
+
+            // If there is no filter present then...
+        } else {
+            log.info("No filter found.");
+            searchStrategy = new AllFieldsSearch(query);
+        }
+    }
+
+    @Override
+    public ResponseToQuery execute(ConceptsServiceOperations service) {
+        return this.searchStrategy.execute(service);
+    }
 
 }
