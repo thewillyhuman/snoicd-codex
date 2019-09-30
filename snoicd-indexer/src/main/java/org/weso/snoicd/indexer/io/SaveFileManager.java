@@ -15,10 +15,10 @@ public class SaveFileManager {
      */
     public void start() {
 
-        descriptionIndexAgent = new SaveFileAgent("../snoicd-search/descriptions.index", StartUp.CONCEPT_DESCRIPTIONS_INDEX);
+        descriptionIndexAgent = new SaveFileAgent("../snoicd-search/descriptionsIndex.json", StartUp.CONCEPT_DESCRIPTIONS_INDEX);
         descriptionIndexAgent.start();
 
-        conceptIdIndexAgent = new SaveFileAgent("../snoicd-search/conceptID.index", StartUp.CONCEPT_ID_INDEX);
+        conceptIdIndexAgent = new SaveFileAgent("../snoicd-search/conceptIDIndex.json", StartUp.CONCEPT_ID_INDEX);
         conceptIdIndexAgent.start();
 
         threadsStarted = true;

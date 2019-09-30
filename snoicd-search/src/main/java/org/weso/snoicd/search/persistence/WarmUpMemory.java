@@ -11,17 +11,17 @@ package org.weso.snoicd.search.persistence;
 
 import java.io.*;
 import java.util.Set;
-import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.weso.snoicd.types.Concept;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import lombok.extern.slf4j.Slf4j;
-import me.tongfei.progressbar.ProgressBar;
 
 /**
  * Instance of WarmUpMemory.java
@@ -33,51 +33,36 @@ import me.tongfei.progressbar.ProgressBar;
 public class WarmUpMemory {
 	
 	@SuppressWarnings("unchecked")
-	public static void init() throws JsonParseException, JsonMappingException, IOException, ClassNotFoundException {
+	public static void init() throws IOException, ClassNotFoundException {
 	    log.info( "Memory warming started." );
-		
 		log.info( "Loading description index" );
-		ProgressBar pb = new ProgressBar("Loading description index", 100);
-		FileInputStream fis = new FileInputStream("descriptions.index");
-		pb.stepTo( 25 );
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        pb.stepTo( 50 );
-        ConcurrentHashMap<String, Set<Concept>> map = new ConcurrentHashMap<>();
 
-        try {
-            map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
-        } catch (OptionalDataException ex) {
-            log.error("Error while loading the description index.");
-            ex.printStackTrace();
-        }
+		// The map where the diferent indexes will be loaded before adding them to the persistence layer.
+        ConcurrentHashMap<String, Set<Concept>> map;
 
-        pb.stepTo( 100 );
-        pb.close();
-        
+        // Mapper object to translate from the JSON files to the persistence.
+        ObjectMapper mapper = new ObjectMapper();
+
+        // Loading the descriptions index files.
+        map = mapper.readValue(new File(
+                "descriptionsIndex.json"), new TypeReference<ConcurrentHashMap<String, Set<Concept>>>() {
+        });
+
+        // Loading the descriptions index file in the persistence layer.
         BigTablePersistenceImpl.instance.getDescriptionIndexMemoryMap().putAll( map );
-        ois.close();
-        fis.close();
 		
         log.info( "Loading code index" );
-        pb = new ProgressBar("Loading concepts id index", 100);
-        fis = new FileInputStream("conceptID.index");
-        pb.stepTo( 25 );
-        ois = new ObjectInputStream(fis);
-        pb.stepTo( 50 );
 
-        try {
-            map = (ConcurrentHashMap<String, Set<Concept>>) ois.readObject();
-        } catch (OptionalDataException ex) {
-            log.error("Error while loading the code index.");
-            ex.printStackTrace();
-        }
+        // Loading the concept id index files.
+        map = mapper.readValue(new File(
+                "conceptIDIndex.json"), new TypeReference<ConcurrentHashMap<String, Set<Concept>>>() {
+        });
 
-        pb.stepTo( 100 );
-        pb.close();
-        
+        // Loading the concept id index file in the persistence layer.
         BigTablePersistenceImpl.instance.getIDIndexMemoryMap().putAll( map );
-        ois.close();
-        fis.close();
+
+        // Cloaning the map
+        map = null;
         
 		log.info( "Idexes in memory." );
 		log.info( "Ready to start up." );

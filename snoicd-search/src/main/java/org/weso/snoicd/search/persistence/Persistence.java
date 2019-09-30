@@ -28,7 +28,7 @@ public interface Persistence {
 	 * @param code to look for.
 	 * @return the set of concepts that are identified with the given code.
 	 */
-	public Set<Concept> findByCode(String code);
+	Set<Concept> findByCode(String code);
 
 	/**
 	 * Finds the set of concepts that have on its descriptions the given words.
@@ -36,7 +36,7 @@ public interface Persistence {
 	 * @param words to look for in the descriptions.
 	 * @return the set of concepts that have on its descriptions the given words.
 	 */
-	public Set<Concept> findByDescription(String... words);
+	Set<Concept> findByDescription(String... words);
 
 	/**
 	 * Main entry-point for an uncontrolled search where we want to look by
@@ -46,17 +46,16 @@ public interface Persistence {
 	 *              descriptions.
 	 * @return
 	 */
-	public Set<Concept> search(String query);
+	Set<Concept> search(String query);
 
 	/**
 	 * Saves a concept in the persistence layer.
 	 * @param concept to save
 	 */
-	public void saveConcept(Concept concept);
+	void saveConcept(Concept concept);
 
 	/**
 	 * Removes all concepts. It is implement for test proposes.
 	 */
-	public void deleteAll();
-
+	void deleteAll();
 }

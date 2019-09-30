@@ -1,7 +1,9 @@
 package org.weso.snoicd.indexer.io;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.thewilly.bigtable.BigTable;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -27,7 +29,7 @@ public class SaveFileAgent extends Thread {
 
     @Override
     public void run() {
-        try {
+        /*try {
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.reset();
@@ -35,6 +37,13 @@ public class SaveFileAgent extends Thread {
             oos.close();
             fos.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File(this.filename), indexToSave.getMemoryMap());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
