@@ -8,13 +8,16 @@ import org.weso.snoicd.search.filter.Filter;
 public class SnoicdSearchDefaultImpl implements SnoicdSearch {
 
     private Filter filter;
-    private String query;
+    private String query, pathToConceptIdIndex, pathToDescriptionsIndex;
 
     private boolean areConceptsLoaded = false;
 
-    public SnoicdSearchDefaultImpl(Filter filter, String query) {
+    public SnoicdSearchDefaultImpl(Filter filter, String query,
+                                   String pathToConceptIdIndex, String pathToDescriptionsIndex) {
         this.filter = filter;
         this.query = query;
+        this.pathToConceptIdIndex = pathToConceptIdIndex;
+        this.pathToDescriptionsIndex = pathToDescriptionsIndex;
     }
 
     @Override
@@ -37,8 +40,8 @@ public class SnoicdSearchDefaultImpl implements SnoicdSearch {
         if(areConceptsLoaded) throw new IllegalStateException("The concepts are already loaded in memory");
 
         WarmUpMemory warmUpMemoryObject = new BigTableWarmUpMemoryImpl(
-                "descriptionsIndex.json",
-                "conceptIDIndex.json"
+                this.pathToConceptIdIndex,
+                this.pathToDescriptionsIndex
         );
 
         warmUpMemoryObject.init();

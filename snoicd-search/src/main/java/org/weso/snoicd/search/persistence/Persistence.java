@@ -35,7 +35,7 @@ public interface Persistence {
      * @param words to look for in the descriptions.
      * @return the set of concepts that have on its descriptions the given words.
      */
-    Set<Concept> findByDescription(String... words);
+    Set<Concept> findByDescription(String[] words);
 
     /**
      * Main entry-point for an uncontrolled search where we want to look by

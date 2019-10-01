@@ -16,7 +16,7 @@
     <module>snoicd-crawler</module>
     <module>snoicd-search</module>
     <module>snoicd-indexer</module>
-    <module>server</module>
+    <module>snoicd-server</module>
   </modules>
   
 </project>

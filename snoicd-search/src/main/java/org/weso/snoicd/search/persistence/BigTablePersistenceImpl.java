@@ -12,12 +12,13 @@ package org.weso.snoicd.search.persistence;
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.BigTableProducer;
 import io.thewilly.bigtable.index.IndexEngine;
-import org.weso.snoicd.search.utils.StringNormalizator;
 import org.weso.snoicd.core.Concept;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static org.weso.snoicd.core.util.StringUtilsKt.normalize;
 
 /**
  * Instance of PersistenceImpl.java
@@ -58,7 +59,7 @@ public class BigTablePersistenceImpl implements Persistence {
 
     @Override
     public Set<Concept> findByDescription(String... words) {
-        for (int i = 0; i < words.length; i++) words[i] = StringNormalizator.normalize(words[i]);
+        for (int i = 0; i < words.length; i++) words[i] = normalize(words[i]);
         Set<Concept> set = this._conceptDescriptionIndex.findIntersection(words);
         if (set == null)
             set = new HashSet<Concept>();
