@@ -25,7 +25,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.weso</groupId>
+			<groupId>org.weso.snoicd</groupId>
 			<artifactId>snoicd-core</artifactId>
 			<version>1.0.0</version>
 		</dependency>

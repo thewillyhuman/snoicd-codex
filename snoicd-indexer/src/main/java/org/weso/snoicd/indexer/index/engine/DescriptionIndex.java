@@ -11,14 +11,14 @@ package org.weso.snoicd.indexer.index.engine;
 
 import io.thewilly.bigtable.BigTable;
 import io.thewilly.bigtable.index.IndexEngine;
-import org.weso.snoicd.indexer.utils.StringNormalizator;
 
 import java.util.HashSet;
+
+import static org.weso.snoicd.core.util.StringUtilsKt.normalize;
 
 /**
  * Instance of DescriptionIndex.java
  *
- * @author
  */
 public class DescriptionIndex implements IndexEngine {
 
@@ -30,7 +30,7 @@ public class DescriptionIndex implements IndexEngine {
     @SuppressWarnings("unchecked")
     //@Override
     public <K, V> boolean index(BigTable<K, V> table, K key, V value) {
-        String normalizedKey = StringNormalizator.normalize(key.toString());
+        String normalizedKey = normalize(key.toString());
         String[] keys = normalizedKey.split(" ");
 
         for (String ikey : keys) {
