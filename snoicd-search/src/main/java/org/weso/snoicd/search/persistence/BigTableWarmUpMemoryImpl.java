@@ -29,7 +29,7 @@ public class BigTableWarmUpMemoryImpl implements WarmUpMemory {
 
     private String descriptionIndexPath, conceptIdIndexPath;
 
-    public BigTableWarmUpMemoryImpl(String descriptionIndexPath, String conceptIdIndexPath) {
+    public BigTableWarmUpMemoryImpl(String conceptIdIndexPath, String descriptionIndexPath) {
         this.descriptionIndexPath = descriptionIndexPath;
         this.conceptIdIndexPath = conceptIdIndexPath;
     }

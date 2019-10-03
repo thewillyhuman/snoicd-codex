@@ -1,45 +1,48 @@
 package org.weso.snoicd.server;
 
-import lombok.extern.slf4j.Slf4j;
-import org.weso.snoicd.search.services.ConceptsServiceOperations;
-import org.weso.snoicd.types.ResponseToQueryAdapter;
+//import lombok.extern.slf4j.Slf4j;
+//import org.weso.snoicd.search.services.ConceptsServiceOperations;
+//import org.weso.snoicd.types.ResponseToQueryAdapter;
 
-@Slf4j
-public class SearchExecutor implements Search {
+import org.weso.snoicd.core.ResponseToQuery;
+import org.weso.snoicd.search.core.AbstractSearchStrategy;
+import org.weso.snoicd.search.core.AllFieldsSearchStrategy;
+import org.weso.snoicd.search.core.ConceptIDSearchStrategy;
+import org.weso.snoicd.search.core.SearchStrategy;
+import org.weso.snoicd.search.persistence.BigTablePersistenceImpl;
 
-    private Search searchStrategy;
+//@Slf4j
+public class SearchExecutor /*implements Search*/ {
 
-    public SearchExecutor(String query, String filter) {
+    private AbstractSearchStrategy searchStrategy;
+
+    public SearchExecutor(String filter) {
 
         if (filter != null && filter != "" && filter != " ") {
-            log.info("Filter found.");
 
             // If we filter by code.
             if (filter.equals("code")) {
-                log.info("Filter was: code.");
-                searchStrategy = new CodeSearch(query);
+                searchStrategy = new ConceptIDSearchStrategy(BigTablePersistenceImpl.instance);
 
                 // If we filter only by description.
             } else if (filter.equals("description")) {
-                log.info("Filter was: description.");
-                searchStrategy = new DescriptionSearch(query);
+                searchStrategy = new ConceptIDSearchStrategy(BigTablePersistenceImpl.instance);
 
                 // In any other case the query is not accepted.
             } else {
-                log.warn("Invalid search found.");
-                searchStrategy = new InvalidSearch();
+                searchStrategy = new AllFieldsSearchStrategy(BigTablePersistenceImpl.instance);
             }
 
             // If there is no filter present then...
         } else {
-            log.info("No filter found.");
-            searchStrategy = new AllFieldsSearch(query);
+            searchStrategy = new AllFieldsSearchStrategy(BigTablePersistenceImpl.instance);
         }
     }
 
-    @Override
-    public ResponseToQueryAdapter execute(ConceptsServiceOperations service) {
-        return this.searchStrategy.execute(service);
+    public ResponseToQuery execute(String query) {
+        System.err.println("Executing search...");
+        this.searchStrategy.setQuery(query);
+        this.searchStrategy.run();
+        return new ResponseToQuery(query, this.searchStrategy.getResult());
     }
-
 }

@@ -8,9 +8,9 @@ import java.util.ArrayList
  * and the set of possible descriptions. But in this case there are no related
  * concepts, it is a node with no outbound edge.
  */
-data class SimpleConcept(var code: String,
+data class SimpleConcept(var code: String = "",
                          var descriptions: List<String> = ArrayList(),
-                         var terminologyName: String) : Serializable {
+                         var terminologyName: String = "") : Serializable {
 
     companion object {
 

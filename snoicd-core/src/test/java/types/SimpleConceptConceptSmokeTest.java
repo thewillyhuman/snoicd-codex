@@ -1,8 +1,9 @@
-package org.weso.snoicd.types;
+package types;
 
 import TestKit.SmokeTest;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.weso.snoicd.core.SimpleConcept;
 import pl.pojo.tester.api.assertion.Method;
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;

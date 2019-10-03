@@ -23,8 +23,8 @@ The snoicd-codex API provide two endpoints for REST requests.
 ]
 ```
 
-## `/api/search?q=copper+fever&filter=(description|code)`
-**Definition:** This endpoint returns those terms that contains the search query in their given filter parameter.  
+## `/api/search?q=copper+fever&searchStrategy=(description|code)`
+**Definition:** This endpoint returns those terms that contains the search query in their given searchStrategy parameter.  
 **Return object:**
 ```
 [{

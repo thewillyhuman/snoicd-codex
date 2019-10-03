@@ -1,31 +1,32 @@
 package org.weso.snoicd.search;
 
 import org.weso.snoicd.core.ResponseToQuery;
+import org.weso.snoicd.search.core.AbstractSearchStrategy;
+import org.weso.snoicd.search.core.SearchStrategy;
 import org.weso.snoicd.search.persistence.BigTableWarmUpMemoryImpl;
 import org.weso.snoicd.search.persistence.WarmUpMemory;
-import org.weso.snoicd.search.filter.Filter;
+
+import java.util.HashSet;
 
 public class SnoicdSearchDefaultImpl implements SnoicdSearch {
 
-    private Filter filter;
-    private String query, pathToConceptIdIndex, pathToDescriptionsIndex;
+    private String pathToConceptIdIndex, pathToDescriptionsIndex;
 
     private boolean areConceptsLoaded = false;
 
-    public SnoicdSearchDefaultImpl(Filter filter, String query,
-                                   String pathToConceptIdIndex, String pathToDescriptionsIndex) {
-        this.filter = filter;
-        this.query = query;
+    public SnoicdSearchDefaultImpl(String pathToConceptIdIndex, String pathToDescriptionsIndex) {
         this.pathToConceptIdIndex = pathToConceptIdIndex;
         this.pathToDescriptionsIndex = pathToDescriptionsIndex;
     }
 
     @Override
-    public ResponseToQuery executeQuery(Filter filter, String query) throws IllegalStateException {
-        ResponseToQuery rtq = new ResponseToQuery("", null);
+    public ResponseToQuery executeQuery(AbstractSearchStrategy searchStrategy, String query) throws IllegalStateException {
+        ResponseToQuery rtq = new ResponseToQuery("", new HashSet<>());
 
         rtq.setQuery(query);
-        rtq.setResult(filter.executeQuery(query));
+        searchStrategy.setQuery(query);
+        searchStrategy.run();
+        rtq.setResult(searchStrategy.getResult());
 
         return rtq;
     }
