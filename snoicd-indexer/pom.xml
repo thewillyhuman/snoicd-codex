@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.weso.snoicd</groupId>
-	<artifactId>indexer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<parent>
+		<groupId>org.weso.snoicd</groupId>
+		<artifactId>root</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
-	<name>indexer</name>
-	<url>http://maven.apache.org</url>
+	<artifactId>snoicd-indexer</artifactId>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,9 +25,21 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.weso.snoicd</groupId>
+			<artifactId>snoicd-core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.thewilly</groupId>
 			<artifactId>big-table</artifactId>
-			<version>0.0.1.1</version>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.0</version>
 		</dependency>
 
 		<dependency>
@@ -59,12 +71,6 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
-		</dependency>
-
-		<dependency>
-			<groupId>me.tongfei</groupId>
-			<artifactId>progressbar</artifactId>
-			<version>0.7.3</version>
 		</dependency>
 
 		<dependency>
@@ -166,8 +172,16 @@
 					</execution>
 				</executions>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
 
-		</plugins>
+        </plugins>
 
 	</build>
 

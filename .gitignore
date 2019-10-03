@@ -81,6 +81,7 @@ target/
 
 
 .idea/
+*.iml
 participants0.iml
 participants_i2b.iml
 /.gradle/

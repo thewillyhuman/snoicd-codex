@@ -114,7 +114,7 @@ CUSTOM MODEL   & 0.5Gb          \\ \cline{1-2}
 \section{IMPLEMENTATION}
 In order to implement the model proposed several DBMS systems where explored, tabular SQL, graph databases, RDF databases and document databases. After taking in to account the dynamism of the models, the ammount of storage needed and the speed requested the most suitable system to implement the persistence of the system was the document database MongoDB.
 
-To implement the API layer we choose Java as main language and Spring Boot as a framework to drive the development. For that was used the known MVC architecture with a single repository, single service and single controller. As an entry-point we have /api/search with the query params q as the text to search and the optional filter description or code to improve the performance at some queries.
+To implement the API layer we choose Java as main language and Spring Boot as a framework to drive the development. For that was used the known MVC architecture with a single repository, single service and single controller. As an entry-point we have /api/search with the query params q as the text to search and the optional searchStrategy description or code to improve the performance at some queries.
 
 \addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
                                   % on the last page of the document manually. It shortens
