@@ -17,8 +17,8 @@ public class SnoicdServer {
 
     public static void main(String... args) {
         QUERY_ENGINE = new SnoicdSearchDefaultImpl(
-                "/home/willy/github/metacare/snoicd-codex/snoicd-search/conceptIDIndex.json",
-                "/home/willy/github/metacare/snoicd-codex/snoicd-search/descriptionsIndex.json"
+                "C:\\git\\snoicd-codex\\snoicd-search\\conceptIDIndex.json",
+                "C:\\git\\snoicd-codex\\snoicd-search\\descriptionsIndex.json"
         );
 
         QUERY_ENGINE.loadConceptsInMemory(); // Load the indexes in memory...
