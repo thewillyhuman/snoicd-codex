@@ -21,6 +21,7 @@
     <module>snoicd-search</module>
     <module>snoicd-indexer</module>
     <module>snoicd-server</module>
+      <module>snoicd-glue</module>
   </modules>
   
 </project>

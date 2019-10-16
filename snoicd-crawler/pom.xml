@@ -25,9 +25,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.weso.snoicd</groupId>
+			<artifactId>snoicd-glue</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.github.thewilly</groupId>
 			<artifactId>big-table</artifactId>
-			<version>0.0.1.1</version>
+			<version>1.1</version>
 		</dependency>
 
 		<dependency>

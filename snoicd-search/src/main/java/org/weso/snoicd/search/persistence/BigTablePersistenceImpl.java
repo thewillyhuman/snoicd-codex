@@ -14,6 +14,7 @@ import io.thewilly.bigtable.BigTableProducer;
 import io.thewilly.bigtable.index.IndexEngine;
 import org.weso.snoicd.core.Concept;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -60,23 +61,24 @@ public class BigTablePersistenceImpl implements Persistence {
     @Override
     public Set<Concept> findByDescription(String... words) {
         for (int i = 0; i < words.length; i++) words[i] = normalize(words[i]);
-        Set<Concept> set = this._conceptDescriptionIndex.findIntersection(words);
-        if (set == null)
-            set = new HashSet<Concept>();
-        return set;
+
+        Set<Concept> result = this._conceptDescriptionIndex.findIntersection(words);
+
+        return result == null ? new HashSet<>() : result;
     }
 
     @Override
     public Set<Concept> findByAllFields(String query) {
-        Set<Concept> set = findByCode(query);
 
-        if (set == null)
-            set = new HashSet<Concept>();
+        Set<Concept> result = findByCode(query);
+
+        if (result == null)
+            result = new HashSet<Concept>();
 
         String[] words = query.split(" ");
-        set.addAll(findByDescription(words));
+        result.addAll(findByDescription(words));
 
-        return set;
+        return result;
     }
 
     @Override
